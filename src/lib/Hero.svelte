@@ -1,4 +1,5 @@
 <script>
+  import { link } from 'svelte-spa-router';
   import { reveal } from './useReveal.js';
 </script>
 
@@ -6,10 +7,12 @@
   <div class="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
     <div class="absolute inset-0">
       <img
-        src="/hero.jpg"
-        alt="Elevation Aviation aircraft in flight"
+        src="https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/18b1c0a1-bca4-4fad-cc33-60e0d4915400/public"
+        alt="Flight training view from the cockpit over northern Virginia"
         class="h-full w-full object-cover"
         loading="eager"
+        fetchpriority="high"
+        decoding="async"
       />
     </div>
     <div
@@ -19,10 +22,10 @@
       class="absolute inset-0 bg-gradient-to-r from-ink-950/80 via-ink-950/45 to-transparent"
     ></div>
     <div
-      class="absolute inset-0 bg-gradient-to-tr from-sky-500/8 via-transparent to-sky-300/6"
+      class="absolute inset-0 bg-gradient-to-tr from-sky-500/[0.08] via-transparent to-sky-300/[0.06]"
     ></div>
     <div
-      class="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_20%_30%,rgba(95,168,230,0.1),transparent_60%)]"
+      class="absolute inset-0 bg-[radial-gradient(ellipse_90%_70%_at_20%_30%,rgba(176,217,245,0.10),transparent_60%)]"
     ></div>
     <div class="grain"></div>
   </div>
@@ -32,40 +35,43 @@
       class="grid grid-cols-1 gap-10 sm:gap-12 lg:grid-cols-12 lg:items-center lg:gap-14 xl:gap-16"
     >
       <div class="max-w-5xl lg:col-span-7">
-        <div
-          class="eyebrow mb-8 text-sky-200 drop-shadow-[0_1px_8px_rgba(7,14,28,0.85)]"
+        <a
+          href="/manassas-regional-airport-virginia"
+          use:link
+          class="eyebrow mb-8 inline-flex text-sky-200 drop-shadow-[0_1px_8px_rgba(7,14,28,0.85)] transition-colors hover:text-sky-100"
           use:reveal
         >
           Manassas Regional Airport, Virginia
-        </div>
+        </a>
 
         <h1
           class="font-display text-[2.75rem] font-medium leading-[1.02] tracking-tight text-bone-50 drop-shadow-[0_2px_24px_rgba(7,14,28,0.45),0_1px_2px_rgba(7,14,28,0.5)] sm:text-7xl sm:leading-[0.98] lg:text-[7.5rem]"
           use:reveal={{ delay: 100 }}
         >
-          Helping pilots<br class="hidden sm:inline" />
+          helping pilots<br class="hidden sm:inline" />
           achieve their<br class="hidden sm:inline" />
-          aviation goals.
+          aviation goals
         </h1>
 
         <p
           class="mt-8 max-w-xl text-base font-normal leading-relaxed text-bone-100/95 sm:mt-10 sm:text-lg drop-shadow-[0_1px_12px_rgba(7,14,28,0.5)]"
           use:reveal={{ delay: 250 }}
         >
-          Personalized flight training at Manassas Regional Airport. Weekly recurring lessons, a unified Piper fleet, and billing that happens after you fly, not before.
+          Personalized, student-forward flight training services at
+          <a href="/manassas-regional-airport-virginia" use:link class="link-underline text-sky-200 hover:text-sky-100">
+            Manassas Regional Airport
+          </a>
+          with consistent instruction, clear scheduling, and a path built around your goals.
         </p>
 
         <div class="mt-10 flex flex-wrap items-center gap-3 sm:mt-12 sm:gap-4" use:reveal={{ delay: 400 }}>
-          <a href="#contact" class="btn-primary">
-            <span>Schedule a Demo Flight</span>
-            <span aria-hidden="true" class="opacity-90">→</span>
-          </a>
-          <a href="#program" class="btn-ghost">Explore the Program</a>
+          <a href="/contact" use:link class="btn-primary">Schedule a demo flight</a>
+          <a href="/training" use:link class="btn-ghost">View training tracks</a>
           <a
             href="tel:5716573847"
-            class="ml-2 hidden text-sm font-medium tabular-nums tracking-wide text-bone-100/90 drop-shadow-[0_1px_6px_rgba(7,14,28,0.6)] hover:text-sky-200 md:inline"
+            class="ml-2 hidden text-sm font-medium tabular-nums tracking-wide text-bone-100/90 drop-shadow-[0_1px_6px_rgba(7,14,28,0.6)] hover:text-sky-300 md:inline"
           >
-            or call · 571 657 3847
+            please call 571-657-3847
           </a>
         </div>
       </div>
@@ -75,55 +81,21 @@
         use:reveal={{ delay: 200 }}
       >
         <div
-          class="hero-logo-dock relative z-0 mx-auto flex w-full min-w-0 max-w-xs items-center justify-center overflow-visible lg:max-w-sm lg:justify-end"
+          class="hero-logo-dock relative z-0 mx-auto flex w-full min-w-0 max-w-xs items-center justify-center lg:max-w-sm lg:justify-end"
         >
-          <svg
-            class="hero-flight-routes pointer-events-none absolute left-1/2 top-1/2 -z-10 aspect-square w-[min(132%,26rem)] max-w-[min(98vw,26rem)] -translate-x-1/2 -translate-y-1/2 overflow-visible"
-            viewBox="-118 -118 236 236"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <g
-              class="r1"
-              transform="rotate(-20)"
-            >
-              <circle
-                cx="0"
-                cy="0"
-                r="100"
-                class="ring-stroke"
-                pathLength="100"
-                stroke-dasharray="0.5 8.5"
-                stroke-linecap="round"
-              />
-            </g>
-            <g
-              class="r2"
-              transform="rotate(128)"
-            >
-              <circle
-                cx="0"
-                cy="0"
-                r="115"
-                class="ring-stroke"
-                pathLength="100"
-                stroke-dasharray="0.45 7.2"
-                stroke-linecap="round"
-              />
-            </g>
-          </svg>
-
           <a
-            href="#top"
-            class="hero-logo-halo group relative z-10 block w-full"
-            aria-label="Elevation Aviation — top of page"
+            href="/"
+            use:link
+            class="hero-logo-link relative z-10 block w-full"
+            aria-label="Elevation Aviation home"
           >
             <img
               src="/logo.png"
               alt=""
-              class="hero-logo-img h-auto w-full max-h-40 object-contain transition-transform duration-500 group-hover:scale-[1.03] sm:max-h-48 lg:max-h-56"
+              class="hero-logo-img h-auto w-full max-h-40 object-contain sm:max-h-48 lg:max-h-56"
               aria-hidden="true"
+              fetchpriority="high"
+              decoding="async"
             />
           </a>
         </div>
@@ -133,43 +105,12 @@
 </section>
 
 <style>
-  /* Glow on the <a> so drop-shadow is not eaten by the img’s own filter. */
-  .hero-logo-halo {
+  .hero-logo-link {
     -webkit-tap-highlight-color: transparent;
-    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 6px rgba(255, 255, 255, 0.2))
-      drop-shadow(0 0 14px rgba(255, 255, 255, 0.12));
   }
 
   .hero-logo-img {
     display: block;
     filter: brightness(0) invert(1);
-  }
-
-  .ring-stroke {
-    fill: none;
-    stroke: rgba(255, 255, 255, 0.5);
-    stroke-width: 0.75;
-    vector-effect: non-scaling-stroke;
-  }
-
-  .r1 .ring-stroke {
-    animation: route-tick 16s linear infinite;
-  }
-  .r2 .ring-stroke {
-    animation: route-tick 20s linear reverse infinite;
-    animation-delay: -5s;
-  }
-
-  @keyframes route-tick {
-    to {
-      stroke-dashoffset: -100;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .r1 .ring-stroke,
-    .r2 .ring-stroke {
-      animation: none;
-    }
   }
 </style>

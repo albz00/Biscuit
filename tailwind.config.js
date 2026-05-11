@@ -4,17 +4,17 @@ export default {
   theme: {
     extend: {
       cursor: {
-        /* Match app.css / html — plane “pointer” for Tailwind’s cursor-pointer */
-        pointer: "url('/cursor-plane.png') 3 2, auto"
+        /* Match app.css / html: plane pointer for Tailwind cursor-pointer */
+        pointer: "url('/cursor-plane.png') 9 5, auto"
       },
       colors: {
         ink: {
-          950: '#070E1C',
-          900: '#0C172B',
-          800: '#12203A',
-          700: '#1A2C4C',
-          600: '#233C67',
-          500: '#2E4E84'
+          950: '#0c1629',
+          900: '#142642',
+          800: '#1c3558',
+          700: '#27456e',
+          600: '#335783',
+          500: '#4a6f9e'
         },
         bone: {
           50: '#FBFAF7',
@@ -23,18 +23,16 @@ export default {
           300: '#D9D3BD'
         },
         sky: {
-          100: '#E4F0FB',
-          200: '#C3DDF5',
-          300: '#9BC5ED',
-          400: '#5FA8E6',
-          500: '#2F85CE',
-          600: '#1F63A3',
-          700: '#154879',
-          800: '#0D3055',
-          900: '#081F3C'
-        },
-        signal: {
-          orange: '#F6A43A'
+          50: '#F4FAFE',
+          100: '#ECF5FD',
+          200: '#D2E8FA',
+          300: '#B0D9F5',
+          400: '#6EB8EC',
+          500: '#3D93E3',
+          600: '#2580C8',
+          700: '#1B679F',
+          800: '#134E78',
+          900: '#0C3554'
         }
       },
       fontFamily: {
@@ -49,15 +47,17 @@ export default {
         hair: '2px'
       },
       boxShadow: {
-        card: '0 1px 0 0 rgba(255,255,255,0.04) inset, 0 30px 60px -30px rgba(0,0,0,0.6)',
-        'sky-glow': '0 4px 28px -6px rgba(95, 168, 230, 0.5), inset 0 1px 0 rgba(255,255,255,0.25)'
+        card: '0 1px 0 0 rgba(255,255,255,0.04) inset, 0 30px 60px -30px rgba(0,0,0,0.6)'
       },
       backgroundImage: {
-        'gradient-radial-sky': 'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(95, 168, 230, 0.22), transparent 55%)',
-        'gradient-radial-cool': 'radial-gradient(ellipse 90% 60% at 80% 10%, rgba(47, 133, 206, 0.32), transparent 50%)',
-        'gradient-page': 'linear-gradient(165deg, #0d1a30 0%, #081428 38%, #11213c 72%, #0a1628 100%)',
-        'gradient-sky-btn': 'linear-gradient(155deg, #8ec3ee 0%, #5fa8e6 42%, #1f63a3 100%)',
-        'gradient-sky-btn-hover': 'linear-gradient(155deg, #a9d3f3 0%, #73b4ea 45%, #2f85ce 100%)',
+        'gradient-radial-sky':
+          'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(130, 205, 255, 0.26), transparent 56%)',
+        'gradient-radial-cool':
+          'radial-gradient(ellipse 90% 60% at 80% 10%, rgba(70, 130, 205, 0.28), transparent 50%)',
+        'gradient-page':
+          'linear-gradient(165deg, #142642 0%, #0c1629 36%, #244064 70%, #081220 100%)',
+        'gradient-sky-btn': 'linear-gradient(155deg, #f0f7ff 0%, #9bcff2 38%, #4a9adb 100%)',
+        'gradient-sky-btn-hover': 'linear-gradient(155deg, #f7fbff 0%, #b8dff9 40%, #62afe8 100%)',
         'gradient-ghost': 'linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%)',
         'gradient-nav-pill': 'linear-gradient(180deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.02) 100%)'
       },

@@ -1,10 +1,35 @@
 <script>
-  const year = new Date().getFullYear();
+  import { onMount } from 'svelte';
+  import { link } from 'svelte-spa-router';
+
+  let copyrightYear = new Date().getFullYear();
+
+  onMount(() => {
+    const syncYear = () => {
+      copyrightYear = new Date().getFullYear();
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') syncYear();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  });
+
+  const explore = [
+    { href: '/', label: 'Home' },
+    { href: '/fleet', label: 'Fleet' },
+    { href: '/training', label: 'Training' },
+    { href: '/instructors', label: 'Instructors' },
+    { href: '/faqs', label: 'FAQs' },
+    { href: '/about', label: 'About' },
+    { href: '/resources', label: 'Resources' },
+    { href: '/contact', label: 'Contact' }
+  ];
 </script>
 
-<footer class="relative border-t border-white/[0.08] bg-ink-950/70">
+<footer class="relative bg-ink-950/70">
   <div
-    class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/50 to-transparent"
+    class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sky-400/40 to-transparent"
   ></div>
 
   <div class="container-x py-16">
@@ -22,22 +47,28 @@
           </span>
         </div>
         <p class="mt-5 max-w-sm text-sm leading-relaxed text-bone-200/68">
-          Flight training at Manassas Regional Airport. Student-focused scheduling, a unified Piper fleet, and clear billing.
+          Flight training at
+          <a href="/manassas-regional-airport-virginia" use:link class="link-underline text-bone-100 hover:text-sky-300">
+            Manassas Regional Airport
+          </a>.
+          Student-focused scheduling, a unified Piper fleet, and clear billing.
         </p>
         <p class="mt-4 text-sm leading-relaxed text-bone-200/50">
-          APP Jet Center, 9998 Wakeman Drive, Suite 204, Manassas, VA 20110
+          APP Jet Center, 9998 Wakeman Drive, Suite 204,
+          <a href="/manassas-regional-airport-virginia" use:link class="link-underline text-bone-100 hover:text-sky-300">
+            Manassas, VA 20110
+          </a>
         </p>
       </div>
 
       <div class="md:col-span-3">
         <div class="num-tag">Explore</div>
         <ul class="mt-4 space-y-2 text-sm text-bone-200/78">
-          <li><a href="#program" class="hover:text-sky-300">Program</a></li>
-          <li><a href="#rates" class="hover:text-sky-300">Rates</a></li>
-          <li><a href="#training" class="hover:text-sky-300">Training</a></li>
-          <li><a href="#fleet" class="hover:text-sky-300">Fleet</a></li>
-          <li><a href="#faq" class="hover:text-sky-300">FAQ</a></li>
-          <li><a href="#contact" class="hover:text-sky-300">Contact</a></li>
+          {#each explore as item}
+            <li>
+              <a href={item.href} use:link class="transition-colors hover:text-sky-300">{item.label}</a>
+            </li>
+          {/each}
         </ul>
       </div>
 
@@ -45,24 +76,37 @@
         <div class="num-tag">Contact</div>
         <ul class="mt-4 space-y-3 text-sm">
           <li>
-            <a href="tel:5716573847" class="font-display text-lg tabular-nums text-bone-50 hover:text-sky-300 sm:text-xl">571 · 657 · 3847</a>
+            <a href="tel:5716573847" class="font-display text-lg tabular-nums text-bone-50 transition-colors hover:text-sky-300 sm:text-xl">571 · 657 · 3847</a>
             <span class="mt-1 block text-xs text-bone-200/55">Office, Mon to Sun, 8 to 6</span>
           </li>
           <li>
-            <a href="tel:7036253517" class="text-bone-200/80 hover:text-sky-300">After hours: 703 · 625 · 3517</a>
+            <a href="tel:7036253517" class="text-bone-200/80 transition-colors hover:text-sky-300">After hours: 703 · 625 · 3517</a>
           </li>
           <li>
-            <a href="mailto:elevation@elevationflight.com" class="text-bone-200/80 hover:text-sky-300">elevation@elevationflight.com</a>
+            <a href="mailto:elevation@elevationflight.com" class="text-bone-200/80 transition-colors hover:text-sky-300">elevation@elevationflight.com</a>
           </li>
           <li>
-            <a href="https://forms.gle/4yXK1m6m4o7BcrZj8" target="_blank" rel="noopener" class="text-bone-200/80 hover:text-sky-300">Dispatch form →</a>
+            <a href="https://forms.gle/4yXK1m6m4o7BcrZj8" target="_blank" rel="noopener" class="text-bone-200/80 transition-colors hover:text-sky-300">Dispatch form</a>
           </li>
         </ul>
       </div>
     </div>
 
-    <div class="mt-16 border-t border-white/[0.08] pt-6 text-xs text-bone-200/45">
-      © {year} Elevation Aviation. All rights reserved.
+    <div
+      class="mt-16 flex flex-col gap-3 bg-white/[0.03] px-4 py-6 text-xs text-bone-200/45 btn-clip-sm sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+    >
+      <span>© {copyrightYear} Elevation Aviation. All rights reserved.</span>
+      <span class="text-bone-200/55">
+        Created by
+        <a
+          href="https://hostverna.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ml-1 text-bone-200/80 transition-colors hover:text-sky-300"
+        >
+          HostVerna
+        </a>
+      </span>
     </div>
   </div>
 </footer>

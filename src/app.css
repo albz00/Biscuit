@@ -8,8 +8,8 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     -webkit-text-size-adjust: 100%;
-    /* Custom site cursor (nose of plane ≈ top-left; 64×43 asset) */
-    cursor: url('/cursor-plane.png') 3 2, auto;
+    /* Custom site cursor (32×22; hotspot on nose, upper-right of art) */
+    cursor: url('/cursor-plane.png') 9 5, auto;
   }
 
   html,
@@ -19,7 +19,7 @@
 
   body {
     font-family: Outfit, system-ui, sans-serif;
-    background-color: #070e1c;
+    background-color: #0c1629;
     background-image: theme(backgroundImage.gradient-page), theme(backgroundImage.gradient-radial-cool),
       theme(backgroundImage.gradient-radial-sky);
     background-attachment: fixed;
@@ -61,9 +61,35 @@
   }
 
   ::selection {
-    background: linear-gradient(90deg, #9bc5ed, #5fa8e6);
-    background-color: #5fa8e6;
-    color: #070e1c;
+    background: linear-gradient(90deg, #d2ecfc, #9bd5f5);
+    background-color: #9bd5f5;
+    color: #0c1629;
+  }
+
+  /* Custom scrollbars (Firefox) */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #4a6f9e #142642;
+  }
+
+  /* Chrome, Edge, Safari */
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    background: #142642;
+    border-radius: 999px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: #4a6f9e;
+    border-radius: 999px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: #5c89c4;
+  }
+  *::-webkit-scrollbar-corner {
+    background: #142642;
   }
 }
 
@@ -86,20 +112,19 @@
     }
   }
 
+  /* Default semantic helpers are tuned for dark surfaces (the dominant context).
+     On light sections, callers add an explicit utility (e.g. text-sky-700/85)
+     to override; utilities win over @applied component layer styles. */
   .eyebrow {
-    @apply inline-flex items-center gap-3 text-[11px] font-semibold uppercase tracking-mega text-sky-400;
-  }
-  .eyebrow::before {
-    content: '';
-    @apply inline-block h-px w-8 bg-gradient-to-r from-sky-500 to-sky-400/30;
+    @apply inline-flex items-center text-[11px] font-semibold uppercase tracking-mega text-sky-300/80;
   }
 
   .kicker {
-    @apply text-[10px] font-semibold uppercase tracking-[0.22em] text-sky-400;
+    @apply text-[10px] font-semibold uppercase tracking-[0.22em] text-sky-300/80;
   }
 
   .tick-list {
-    @apply text-[10px] font-semibold uppercase tracking-[0.22em] text-sky-300;
+    @apply text-[10px] font-semibold uppercase tracking-[0.22em] text-bone-200/85;
   }
 
   .hair-divider {
@@ -108,26 +133,26 @@
 
   .chart-rule {
     height: 1px;
-    background-image: linear-gradient(to right, rgba(95, 168, 230, 0.5) 50%, transparent 50%);
+    background-image: linear-gradient(to right, rgba(130, 195, 245, 0.55) 50%, transparent 50%);
     background-size: 8px 1px;
     background-repeat: repeat-x;
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-3 px-7 py-4 text-sm font-semibold tracking-hair transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-0 px-6 py-3.5 text-xs font-semibold uppercase tracking-[0.12em] transition-all duration-300 sm:px-7 sm:py-4 sm:text-sm;
     border-radius: 0;
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
   }
   .btn-primary {
-    @apply btn bg-gradient-sky-btn text-ink-950 shadow-sky-glow hover:bg-gradient-sky-btn-hover hover:-translate-y-0.5 active:translate-y-0;
+    @apply btn border border-sky-800/40 bg-gradient-sky-btn text-ink-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] hover:bg-gradient-sky-btn-hover hover:-translate-y-0.5 active:translate-y-0;
     background-size: 100% 100%;
   }
   .btn-ghost {
-    @apply btn border border-bone-100/25 bg-gradient-ghost text-bone-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-sky-300/60 hover:text-sky-200;
+    @apply btn border border-white/15 bg-gradient-ghost text-bone-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] hover:text-sky-300;
   }
   .btn-dark {
-    @apply btn border border-bone-100/15 bg-gradient-to-b from-ink-800 to-ink-950 text-bone-100 hover:from-ink-700 hover:to-ink-900;
+    @apply btn border border-white/12 bg-gradient-to-b from-ink-800 to-ink-950 text-bone-100 hover:from-ink-700 hover:to-ink-900;
   }
 
   .btn-clip {
@@ -147,11 +172,11 @@
   }
 
   .num-tag {
-    @apply text-[10px] font-semibold uppercase tracking-[0.22em] text-sky-400;
+    @apply text-[10px] font-semibold uppercase tracking-[0.22em] text-sky-300/80;
   }
 
   .form-label {
-    @apply text-[10px] font-semibold uppercase tracking-[0.18em] text-bone-200/65;
+    @apply text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-600;
   }
 
   .link-underline {
@@ -170,7 +195,7 @@
   }
   .link-underline-dark::after {
     content: '';
-    @apply absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-sky-600 to-sky-500 transition-transform duration-500 ease-out;
+    @apply absolute bottom-0 left-0 h-px w-full origin-left scale-x-0 bg-gradient-to-r from-sky-700 to-sky-500 transition-transform duration-500 ease-out;
   }
   .link-underline-dark:hover::after {
     @apply scale-x-100;
