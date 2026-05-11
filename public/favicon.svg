@@ -1,11 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#9BC5ED"/>
-      <stop offset="50%" style="stop-color:#5FA8E6"/>
-      <stop offset="100%" style="stop-color:#1F63A3"/>
-    </linearGradient>
-  </defs>
-  <rect width="32" height="32" fill="#070E1C"/>
-  <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="15" fill="url(#g)">E</text>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32">
+  <title>Elevation Aviation</title>
+  <!-- Same mark as the navbar: /logo.png with brightness(0) invert(1) on ink background -->
+  <rect width="32" height="32" rx="7" fill="#0c1629"/>
+  <image
+    width="26"
+    height="26"
+    x="3"
+    y="3"
+    href="/logo.png"
+    xlink:href="/logo.png"
+    preserveAspectRatio="xMidYMid meet"
+    style="filter: brightness(0) invert(1)"
+  />
 </svg>

@@ -30,7 +30,7 @@
         {:else}
           <span>{item}</span>
         {/if}
-        <span class="text-sky-400/60">·</span>
+        <span class="text-sky-400/60 tracking-widest" aria-hidden="true">--</span>
       </div>
     {/each}
   </div>

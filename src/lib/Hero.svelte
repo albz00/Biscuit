@@ -1,19 +1,54 @@
 <script>
+  import { onDestroy, onMount } from 'svelte';
   import { link } from 'svelte-spa-router';
   import { reveal } from './useReveal.js';
+  import GoogleReviewLink from './GoogleReviewLink.svelte';
+
+  const heroBackgrounds = [
+    {
+      src: 'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/18b1c0a1-bca4-4fad-cc33-60e0d4915400/public',
+      alt: 'Flight training view from the cockpit over northern Virginia',
+    },
+    {
+      src: 'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/bc23448b-c5ab-496c-f3bc-fac0ba9dce00/public',
+      alt: 'Elevation Aviation training aircraft in flight above the clouds',
+    },
+  ];
+
+  const ROTATE_MS = 9000;
+
+  /** @type {0 | 1} */
+  let activeBg = 0;
+  /** @type {ReturnType<typeof setInterval> | undefined} */
+  let rotateTimer;
+
+  onMount(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+    rotateTimer = setInterval(() => {
+      activeBg = activeBg === 0 ? 1 : 0;
+    }, ROTATE_MS);
+  });
+
+  onDestroy(() => {
+    if (rotateTimer) clearInterval(rotateTimer);
+  });
 </script>
 
 <section id="top" class="relative isolate min-h-[100svh] overflow-x-clip lg:min-h-screen">
   <div class="pointer-events-none absolute inset-0 -z-20 overflow-hidden">
     <div class="absolute inset-0">
-      <img
-        src="https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/18b1c0a1-bca4-4fad-cc33-60e0d4915400/public"
-        alt="Flight training view from the cockpit over northern Virginia"
-        class="h-full w-full object-cover"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-      />
+      {#each heroBackgrounds as bg, i}
+        <img
+          src={bg.src}
+          alt={bg.alt}
+          class="hero-bg-img h-full w-full object-cover motion-safe:transition-opacity motion-safe:duration-[1.4s] motion-safe:ease-in-out"
+          class:hero-bg-img--active={activeBg === i}
+          loading={i === 0 ? 'eager' : 'eager'}
+          fetchpriority={i === 0 ? 'high' : 'low'}
+          decoding="async"
+        />
+      {/each}
     </div>
     <div
       class="absolute inset-0 bg-gradient-to-b from-ink-950/70 via-ink-900/52 to-ink-950/92"
@@ -74,6 +109,9 @@
             please call 571-657-3847
           </a>
         </div>
+        <div class="mt-5 flex flex-wrap items-center gap-3" use:reveal={{ delay: 480 }}>
+          <GoogleReviewLink variant="on-dark" />
+        </div>
       </div>
 
       <div
@@ -105,6 +143,26 @@
 </section>
 
 <style>
+  .hero-bg-img {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+
+  .hero-bg-img--active {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg-img:first-child {
+      opacity: 1;
+    }
+
+    .hero-bg-img:not(:first-child) {
+      display: none;
+    }
+  }
+
   .hero-logo-link {
     -webkit-tap-highlight-color: transparent;
   }

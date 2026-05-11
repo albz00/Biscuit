@@ -6,14 +6,18 @@
   let scrolled = false;
   let mobileOpen = false;
 
+  const resourceLinks = [
+    { href: '/resources', label: 'Resource hub', description: 'Site map and student links' },
+    { href: '/blog', label: 'Blog', description: 'Training notes and updates' }
+  ];
+
   const links = [
     { href: '/', label: 'Home' },
     { href: '/fleet', label: 'Fleet' },
     { href: '/training', label: 'Training' },
     { href: '/instructors', label: 'Instructors' },
     { href: '/faqs', label: 'FAQs' },
-    { href: '/about', label: 'About' },
-    { href: '/resources', label: 'Resources' }
+    { href: '/about', label: 'About' }
   ];
 
   onMount(() => {
@@ -73,6 +77,53 @@
           {item.label}
         </a>
       {/each}
+      <div class="group relative">
+        <a
+          href="/resources"
+          use:link
+          use:active={{ className: 'bg-white/[0.1] text-bone-50' }}
+          class="btn-clip-xs inline-flex items-center gap-1.5 px-2 py-2 text-center text-[10px] font-semibold uppercase tracking-[0.14em] text-bone-200/82 transition-colors duration-200 hover:bg-white/[0.08] hover:text-bone-50 xl:px-2.5 xl:text-[11px]"
+        >
+          Resources
+          <span
+            class="inline-flex text-bone-200/60 transition-transform duration-200 group-hover:rotate-180"
+            aria-hidden="true"
+          >
+            <svg class="h-2.5 w-2.5 shrink-0" viewBox="0 0 12 12" fill="none">
+              <path
+                d="M2.5 4.25L6 7.75L9.5 4.25"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+        </a>
+        <div
+          class="invisible absolute right-0 top-full z-50 mt-2 w-64 translate-y-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
+        >
+          <div
+            class="btn-clip-sm border border-white/12 bg-ink-950/95 p-2 shadow-[0_24px_60px_-28px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl"
+          >
+            {#each resourceLinks as item}
+              <a
+                href={item.href}
+                use:link
+                use:active={{ className: 'bg-white/[0.08] text-bone-50' }}
+                class="btn-clip-xs block px-3 py-3 text-left transition-colors hover:bg-white/[0.06]"
+              >
+                <span class="block text-[11px] font-semibold uppercase tracking-[0.14em] text-bone-100">
+                  {item.label}
+                </span>
+                <span class="mt-1 block text-xs leading-relaxed text-bone-200/65">
+                  {item.description}
+                </span>
+              </a>
+            {/each}
+          </div>
+        </div>
+      </div>
     </nav>
 
     <div class="flex shrink-0 items-center gap-2 sm:gap-3">
@@ -129,6 +180,19 @@
             {item.label}
           </a>
         {/each}
+        <div class="mt-1 border border-white/10 bg-white/[0.035] p-2 btn-clip-sm">
+          <p class="px-2 pb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-bone-200/55">Resources</p>
+          {#each resourceLinks as item}
+            <a
+              href={item.href}
+              use:link
+              on:click={close}
+              class="btn-clip-xs block px-3 py-3 text-xs font-semibold uppercase tracking-[0.12em] text-bone-200/90 transition-colors hover:bg-white/[0.06] hover:text-sky-300"
+            >
+              {item.label}
+            </a>
+          {/each}
+        </div>
         <div class="mt-3 border border-white/12 bg-white/[0.04] px-3 py-4 btn-clip-sm">
           <a
             href="tel:5716573847"

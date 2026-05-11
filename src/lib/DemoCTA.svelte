@@ -1,6 +1,7 @@
 <script>
   import { link } from 'svelte-spa-router';
   import { reveal } from './useReveal.js';
+  import GoogleReviewLink from './GoogleReviewLink.svelte';
 </script>
 
 <section
@@ -32,6 +33,12 @@
           </a>.
           Please call us at 571-657-3847 to set up a time to stop in and fly.
         </p>
+        <div class="mt-8 flex flex-wrap items-center gap-4" use:reveal={{ delay: 280 }}>
+          <GoogleReviewLink variant="on-dark" />
+          <p class="max-w-xs text-sm leading-relaxed text-bone-100/75">
+            Trained with us? Share your experience on Google.
+          </p>
+        </div>
       </div>
 
       <div class="lg:col-span-5" use:reveal={{ delay: 250 }}>

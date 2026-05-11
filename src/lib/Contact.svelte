@@ -1,6 +1,10 @@
 <script>
   import { link } from 'svelte-spa-router';
   import { reveal } from './useReveal.js';
+  import GoogleReviewLink from './GoogleReviewLink.svelte';
+
+  /** When true (standalone /contact page), adds the top ink fade so the fixed nav reads on this light section. */
+  export let navDarkCap = false;
 
   let name = '';
   let preferredDate = '';
@@ -50,11 +54,18 @@
   id="contact"
   class="relative overflow-hidden bg-gradient-to-b from-bone-100 via-bone-50 to-bone-100 py-28 text-ink-900 sm:py-36"
 >
+  {#if navDarkCap}
+    <div
+      class="pointer-events-none absolute inset-x-0 top-0 z-0 h-28 bg-gradient-to-b from-ink-950 to-transparent sm:h-36"
+    ></div>
+  {/if}
   <div
     class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_45%_at_90%_10%,rgba(61,147,227,0.12),transparent_55%)]"
+    class:z-0={navDarkCap}
   ></div>
   <div
     class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_0%_100%,rgba(42,111,158,0.08),transparent_55%)]"
+    class:z-0={navDarkCap}
   ></div>
 
   <div class="container-x relative">
@@ -122,6 +133,49 @@
             >
               Open in Google Maps
             </a>
+          </div>
+          <div>
+            <dt class="num-tag">Reviews & social</dt>
+            <dd class="mt-3 space-y-5">
+              <GoogleReviewLink variant="solid" />
+              <div class="flex flex-wrap gap-3">
+                <a
+                  href="https://www.facebook.com/p/Elevation-Aviation-61574436880131/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 rounded-full border border-ink-900/10 bg-white px-4 py-2.5 text-sm font-semibold text-ink-800 shadow-[0_8px_24px_-16px_rgba(7,14,28,0.2)] transition-all hover:border-[#0866FF]/35 hover:bg-[#0866FF]/[0.06]"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                    <path
+                      fill="#0866FF"
+                      d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"
+                    />
+                  </svg>
+                  Facebook
+                </a>
+                <a
+                  href="https://www.instagram.com/elevationaviation/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 rounded-full border border-ink-900/10 bg-white px-4 py-2.5 text-sm font-semibold text-ink-800 shadow-[0_8px_24px_-16px_rgba(7,14,28,0.2)] transition-all hover:border-pink-500/30 hover:bg-gradient-to-br hover:from-purple-50 hover:to-pink-50"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="igGradContact" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#F58529" />
+                        <stop offset="50%" stop-color="#DD2A7B" />
+                        <stop offset="100%" stop-color="#8134AF" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      fill="url(#igGradContact)"
+                      d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
+                    />
+                  </svg>
+                  Instagram
+                </a>
+              </div>
+            </dd>
           </div>
           <div>
             <dt class="num-tag">Notice</dt>

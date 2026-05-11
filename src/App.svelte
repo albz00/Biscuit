@@ -10,8 +10,10 @@
   import FaqsPage from './pages/FaqsPage.svelte';
   import AboutPage from './pages/AboutPage.svelte';
   import ResourcesPage from './pages/ResourcesPage.svelte';
+  import BlogPage from './pages/BlogPage.svelte';
   import ContactPage from './pages/ContactPage.svelte';
   import ManassasAirportPage from './pages/ManassasAirportPage.svelte';
+  import LoginPage from './pages/LoginPage.svelte';
 
   const routes = {
     '/': Home,
@@ -21,7 +23,9 @@
     '/faqs': FaqsPage,
     '/about': AboutPage,
     '/resources': ResourcesPage,
+    '/blog': BlogPage,
     '/contact': ContactPage,
+    '/login': LoginPage,
     '/manassas-regional-airport-virginia': ManassasAirportPage,
     '*': Home
   };

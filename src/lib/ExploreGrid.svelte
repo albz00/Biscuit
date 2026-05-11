@@ -31,7 +31,7 @@
     {
       href: '/resources',
       title: 'Resources',
-      blurb: 'Dispatch, financing, and office contact links.'
+      blurb: 'A full site overview plus useful student links.'
     }
   ];
 </script>

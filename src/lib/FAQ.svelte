@@ -56,10 +56,7 @@
         <div class="eyebrow mb-8" use:reveal>Frequently Asked Questions</div>
 
         <div class="relative" use:reveal={{ delay: 80 }}>
-          <p class="font-sans text-[10px] font-semibold uppercase tracking-[0.35em] text-sky-300/85">
-            Elevation Aviation
-          </p>
-          <h2 class="faq-display mt-4 font-display font-medium tracking-tight text-bone-50">
+          <h2 class="faq-display font-display font-medium tracking-tight text-bone-50">
             <span class="block text-[clamp(3.5rem,12vw,7.5rem)] leading-[0.85]">Ask</span>
             <span
               class="block bg-gradient-to-br from-bone-100/45 via-bone-100/20 to-bone-100/5 bg-clip-text text-[clamp(2.5rem,8vw,4.5rem)] leading-[0.95] text-transparent"
@@ -137,6 +134,34 @@
             </li>
           {/each}
         </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-16 flex flex-col gap-6 border border-white/[0.06] bg-white/[0.035] px-5 py-8 btn-clip-sm sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-8 sm:py-10 lg:mt-20"
+      use:reveal={{ delay: 140 }}
+    >
+      <div class="max-w-xl">
+        <p class="font-sans text-[10px] font-semibold uppercase tracking-[0.35em] text-sky-300/85">Next step</p>
+        <p class="mt-3 font-display text-xl font-medium tracking-tight text-bone-50 sm:text-2xl">Talk with the office</p>
+        <p class="mt-2 text-sm leading-relaxed text-bone-200/65">
+          Send a message or call for scheduling, intro flights, or anything we didn't cover above.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3 sm:shrink-0">
+        <a
+          href="/contact"
+          use:link
+          class="btn-clip-sm border border-sky-800/40 bg-gradient-sky-btn px-4 py-2.5 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-ink-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.22)] transition-all duration-300 hover:bg-gradient-sky-btn-hover hover:-translate-y-px sm:px-5 sm:py-3 sm:text-xs"
+        >
+          Contact
+        </a>
+        <a
+          href="tel:5716573847"
+          class="btn-clip-sm border border-white/20 bg-white/[0.08] px-4 py-2.5 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-bone-50 transition-colors hover:bg-white/[0.15] sm:px-5 sm:py-3 sm:text-xs"
+        >
+          Call 571-657-3847
+        </a>
       </div>
     </div>
   </div>

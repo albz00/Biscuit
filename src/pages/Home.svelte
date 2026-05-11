@@ -4,8 +4,8 @@
   import Pillars from '../lib/Pillars.svelte';
   import Training from '../lib/Training.svelte';
   import Rates from '../lib/Rates.svelte';
+  import Testimonials from '../lib/Testimonials.svelte';
   import DemoCTA from '../lib/DemoCTA.svelte';
-  import ExploreGrid from '../lib/ExploreGrid.svelte';
   import Contact from '../lib/Contact.svelte';
 </script>
 
@@ -14,6 +14,6 @@
 <Pillars />
 <Training />
 <Rates />
+<Testimonials />
 <DemoCTA />
-<ExploreGrid />
 <Contact />

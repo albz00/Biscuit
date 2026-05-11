@@ -26,17 +26,6 @@
             fetchpriority="low"
             decoding="async"
           />
-          <div
-            class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/25 via-transparent to-transparent"
-          ></div>
-          <a
-            href="/manassas-regional-airport-virginia"
-            use:link
-            class="absolute bottom-5 left-5 btn-clip-sm border border-white/20 bg-ink-950/70 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-bone-50 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-md"
-            aria-label="Learn more about Manassas Regional Airport"
-          >
-            Manassas Regional Airport
-          </a>
         </div>
       </div>
 

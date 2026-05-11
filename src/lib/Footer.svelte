@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { link } from 'svelte-spa-router';
+  import GoogleReviewLink from './GoogleReviewLink.svelte';
 
   let copyrightYear = new Date().getFullYear();
 
@@ -87,6 +88,27 @@
           </li>
           <li>
             <a href="https://forms.gle/4yXK1m6m4o7BcrZj8" target="_blank" rel="noopener" class="text-bone-200/80 transition-colors hover:text-sky-300">Dispatch form</a>
+          </li>
+          <li class="pt-2">
+            <GoogleReviewLink variant="on-dark" />
+          </li>
+          <li class="flex flex-wrap gap-x-4 gap-y-2 pt-1 text-bone-200/80">
+            <a
+              href="https://www.facebook.com/p/Elevation-Aviation-61574436880131/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="transition-colors hover:text-sky-300"
+            >
+              Facebook
+            </a>
+            <a
+              href="https://www.instagram.com/elevationaviation/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="transition-colors hover:text-sky-300"
+            >
+              Instagram
+            </a>
           </li>
         </ul>
       </div>

@@ -1,5 +1,6 @@
 <script>
   import { link } from 'svelte-spa-router';
+  import DemoCTA from '../lib/DemoCTA.svelte';
   import { reveal } from '../lib/useReveal.js';
 
   const airportName = 'Manassas Regional Airport (HEF)';
@@ -87,3 +88,4 @@
     </div>
   </div>
 </section>
+<DemoCTA />

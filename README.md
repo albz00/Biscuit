@@ -1,4 +1,4 @@
-# Elevation Aviation — One-Page Demo
+# Elevation Aviation: One-Page Demo
 
 A one-page marketing site for **Elevation Aviation**, a personalized flight training school based at Manassas Regional Airport, Virginia.
 
@@ -15,9 +15,9 @@ Then open http://localhost:5173
 
 ## Scripts
 
-- `npm run dev` — start the dev server
-- `npm run build` — build for production
-- `npm run preview` — preview the production build locally
+- `npm run dev`: start the dev server
+- `npm run build`: build for production
+- `npm run preview`: preview the production build locally
 
 ## Structure
 
@@ -44,5 +44,5 @@ src/
 
 - **Ink** (near-black navy) base, **bone** (warm off-white) type, **brass** (muted gold) accent.
 - Display type: *Space Grotesk*. Body type: *Inter*. Tabular numerics: *JetBrains Mono*.
-- No iconography — numeric chapter markers and typographic rhythm carry the structure.
+- No iconography: numeric chapter markers and typographic rhythm carry the structure.
 - Every section exposes at least one CTA (call, book demo, consultation, dispatch form).

@@ -1,6 +1,7 @@
 <script>
   import { link } from 'svelte-spa-router';
   import { reveal } from './useReveal.js';
+  import GoogleReviewLink from './GoogleReviewLink.svelte';
 
   const pillars = [
     {
@@ -35,14 +36,16 @@
         <p class="mt-8 max-w-md text-base leading-relaxed text-bone-200/72" use:reveal={{ delay: 200 }}>
           Student experience and mentorship first, with clear expectations for scheduling, aircraft, and how you pay.
         </p>
-        <a
-          href="/contact"
-          use:link
-          class="mt-10 inline-block link-underline font-sans text-xs font-semibold uppercase tracking-[0.14em] text-sky-300"
-          use:reveal={{ delay: 300 }}
-        >
-          Request a consultation
-        </a>
+        <div class="mt-10 flex flex-col items-start gap-4" use:reveal={{ delay: 300 }}>
+          <a
+            href="/contact"
+            use:link
+            class="inline-block link-underline font-sans text-xs font-semibold uppercase tracking-[0.14em] text-sky-300"
+          >
+            Request a consultation
+          </a>
+          <GoogleReviewLink variant="on-dark" />
+        </div>
         <img
           src="https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/4fa0708f-d384-43b9-7601-2f57df788c00/public"
           alt=""
