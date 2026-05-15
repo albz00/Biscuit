@@ -1,5 +1,5 @@
 <script>
-  import { link } from 'svelte-spa-router';
+  import { link } from './router.js';
   import { reveal } from './useReveal.js';
 
   /** `'none'` (default) | `'contact'` — training page uses contact. */
@@ -21,6 +21,14 @@
       image:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/12841510-680b-467e-4660-60dcb5d5b200/public',
       imageAlt: 'Instrument panel view in flight.'
+    },
+    {
+      label: 'Instructor path',
+      title: 'Instructor Rating',
+      blurb: 'Prepare to teach with focused lesson planning, right-seat proficiency, and instructor-level standards.',
+      image:
+        'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/f969c332-edab-437a-65e5-b9e9eb152f00/public',
+      imageAlt: 'Instructor and student celebrating a milestone in front of the training aircraft.'
     },
     {
       label: 'Career step',
@@ -57,7 +65,7 @@
         class="pointer-events-none absolute left-[16.66%] right-[16.66%] hidden h-px translate-y-6 bg-gradient-to-r from-transparent via-sky-300/35 to-transparent md:block"
         aria-hidden="true"
       ></div>
-      <ol class="relative grid list-none gap-12 p-0 text-center md:grid-cols-3 md:gap-8">
+      <ol class="relative grid list-none gap-12 p-0 text-center md:grid-cols-4 md:gap-8">
         {#each tracks as track, i}
           <li class="group relative" use:reveal={{ delay: 150 + i * 100 }}>
             <div
@@ -108,21 +116,13 @@
       a small, intimate family to help keep focused on people just like you who are chasing their dreams!
     </div>
     <div class="mt-8 flex flex-col gap-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-8" use:reveal={{ delay: 340 }}>
-      <a
-        href="https://forms.gle/4yXK1m6m4o7BcrZj8"
-        target="_blank"
-        rel="noopener"
-        class="inline-block link-underline font-sans text-xs font-semibold uppercase tracking-[0.14em] text-sky-300"
-      >
-        Open dispatch form
-      </a>
       {#if endCta === 'contact'}
         <a
           href="/contact"
           use:link
-          class="group inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-ink-950/35 px-4 py-2.5 text-sm font-medium text-bone-100/95 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.5)] backdrop-blur-sm transition-all hover:border-sky-400/35 hover:bg-ink-950/55 hover:text-bone-50"
+          class="group btn-clip-sm inline-flex items-center gap-2.5 border border-white/15 bg-ink-950/35 px-4 py-2.5 text-sm font-medium text-bone-100/95 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.5)] backdrop-blur-sm transition-all hover:border-sky-400/35 hover:bg-ink-950/55 hover:text-bone-50"
         >
-          Get in contact
+          Start with a free consultation
         </a>
       {/if}
     </div>

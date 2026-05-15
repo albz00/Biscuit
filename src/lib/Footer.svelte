@@ -1,9 +1,11 @@
 <script>
   import { onMount } from 'svelte';
-  import { link } from 'svelte-spa-router';
+  import { link } from './router.js';
   import GoogleReviewLink from './GoogleReviewLink.svelte';
 
   let copyrightYear = new Date().getFullYear();
+  const brandLogo =
+    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/cc79ee1b-e321-4111-3de5-8a0eb77b5000/public';
 
   onMount(() => {
     const syncYear = () => {
@@ -38,21 +40,17 @@
       <div class="md:col-span-5">
         <div class="flex items-center gap-3">
           <img
-            src="/logo.png"
-            alt=""
-            aria-hidden="true"
-            class="logo-mark h-10 w-auto"
+            src={brandLogo}
+            alt="Elevation Aviation"
+            class="h-10 w-auto max-w-[14rem] brightness-0 invert"
           />
-          <span class="font-display text-base font-medium uppercase tracking-[0.22em] text-bone-50">
-            Elevation Aviation
-          </span>
         </div>
         <p class="mt-5 max-w-sm text-sm leading-relaxed text-bone-200/68">
           Flight training at
           <a href="/manassas-regional-airport-virginia" use:link class="link-underline text-bone-100 hover:text-sky-300">
             Manassas Regional Airport
           </a>.
-          Student-focused scheduling, a unified Piper fleet, and clear billing.
+          Student-focused scheduling, a PA-28 fleet, and clear billing.
         </p>
         <p class="mt-4 text-sm leading-relaxed text-bone-200/50">
           APP Jet Center, 9998 Wakeman Drive, Suite 204,
@@ -85,9 +83,6 @@
           </li>
           <li>
             <a href="mailto:elevation@elevationflight.com" class="text-bone-200/80 transition-colors hover:text-sky-300">elevation@elevationflight.com</a>
-          </li>
-          <li>
-            <a href="https://forms.gle/4yXK1m6m4o7BcrZj8" target="_blank" rel="noopener" class="text-bone-200/80 transition-colors hover:text-sky-300">Dispatch form</a>
           </li>
           <li class="pt-2">
             <GoogleReviewLink variant="on-dark" />

@@ -1,8 +1,10 @@
 <script>
+  import { link } from './router.js';
   import { reveal } from './useReveal.js';
 
   const aircraft = [
     {
+      id: 'n5295s',
       tail: 'N5295S',
       model: '1971 Piper Cherokee 140',
       blurb:
@@ -27,15 +29,12 @@
         {
           src: 'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/f969c332-edab-437a-65e5-b9e9eb152f00/public',
           alt: 'Student milestone in front of the N5295S training aircraft.'
-        },
-        {
-          src: 'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/18b1c0a1-bca4-4fad-cc33-60e0d4915400/public',
-          alt: 'Cockpit view during flight training in the Cherokee.'
         }
       ],
       avionics: ['Dual Garmin G5 flight displays', 'Touch screen Garmin GPS 175']
     },
     {
+      id: 'n8460y',
       tail: 'N8460Y',
       model: 'Piper Archer 181',
       blurb:
@@ -82,6 +81,7 @@
   function stepImage(aircraftIndex, delta) {
     selectImage(aircraftIndex, selectedImages[aircraftIndex] + delta);
   }
+
 </script>
 
 <section id="fleet" class="relative overflow-hidden bg-ink-900">
@@ -100,7 +100,16 @@
   </div>
 
   <div class="container-x relative py-28 sm:py-36">
-    <div class="max-w-3xl">
+    <a
+      href="/"
+      use:link
+      class="inline-block text-[11px] font-semibold uppercase tracking-[0.2em] text-sky-300/80 transition-colors hover:text-sky-200"
+      use:reveal
+    >
+      Back to home
+    </a>
+
+    <div class="mt-6 max-w-3xl">
       <div class="eyebrow mb-6" use:reveal>Aircraft</div>
       <h2
         class="font-display text-4xl font-medium leading-[1.05] tracking-tight text-bone-50 sm:text-5xl lg:text-6xl"
@@ -109,13 +118,25 @@
         Training aircraft<br />at Elevation Aviation.
       </h2>
       <p class="mt-8 max-w-xl text-base leading-relaxed text-bone-200/75" use:reveal={{ delay: 200 }}>
-        We operate a unified PA-28 fleet.
+        We operate a PA-28 fleet with consistent handling, checklist flow, and training procedures.
       </p>
+      <div class="mt-8 flex flex-wrap gap-3" use:reveal={{ delay: 260 }}>
+        {#each aircraft as a}
+          <a
+            href={`/fleet#${a.id}`}
+            use:link
+            class="btn-clip-xs border border-white/15 bg-white/[0.06] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-bone-100 transition hover:border-sky-400/40 hover:text-sky-300"
+          >
+            {a.tail}
+          </a>
+        {/each}
+      </div>
     </div>
 
     <div class="mt-16 grid grid-cols-1 gap-6 lg:grid-cols-2">
       {#each aircraft as a, i}
         <article
+          id={a.id}
           class="group relative btn-clip border border-white/[0.055] bg-gradient-to-b from-ink-900/70 to-ink-950 p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_20px_40px_-24px_rgba(0,0,0,0.4)] backdrop-blur-sm transition-all duration-500 sm:p-10"
           use:reveal={{ delay: 150 + i * 150 }}
         >
@@ -199,21 +220,6 @@
           </div>
         </article>
       {/each}
-    </div>
-
-    <div
-      class="mt-12 flex flex-wrap items-center justify-between gap-4 border border-white/[0.04] bg-white/[0.03] px-4 py-8 btn-clip-sm"
-      use:reveal={{ delay: 300 }}
-    >
-      <p class="text-sm text-bone-200/65">Reserve an aircraft through our dispatch form.</p>
-      <a
-        href="https://forms.gle/4yXK1m6m4o7BcrZj8"
-        target="_blank"
-        rel="noopener"
-        class="link-underline font-sans text-xs font-semibold uppercase tracking-[0.14em] text-sky-300"
-      >
-        Open dispatch form
-      </a>
     </div>
 
     <div class="mt-20 border-t border-white/[0.06] pt-16" use:reveal={{ delay: 200 }}>

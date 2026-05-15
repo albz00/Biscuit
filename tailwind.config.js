@@ -9,12 +9,12 @@ export default {
       },
       colors: {
         ink: {
-          950: '#0c1629',
-          900: '#142642',
-          800: '#1c3558',
-          700: '#27456e',
-          600: '#335783',
-          500: '#4a6f9e'
+          950: '#111318',
+          900: '#1a1d23',
+          800: '#262a32',
+          700: '#343942',
+          600: '#4a515c',
+          500: '#6b7280'
         },
         bone: {
           50: '#FBFAF7',
@@ -53,9 +53,9 @@ export default {
         'gradient-radial-sky':
           'radial-gradient(ellipse 70% 50% at 50% 0%, rgba(130, 205, 255, 0.26), transparent 56%)',
         'gradient-radial-cool':
-          'radial-gradient(ellipse 90% 60% at 80% 10%, rgba(70, 130, 205, 0.28), transparent 50%)',
+          'radial-gradient(ellipse 90% 60% at 80% 10%, rgba(61, 147, 227, 0.22), transparent 50%)',
         'gradient-page':
-          'linear-gradient(165deg, #142642 0%, #0c1629 36%, #244064 70%, #081220 100%)',
+          'linear-gradient(165deg, #1a1d23 0%, #111318 42%, #2f3742 72%, #0b0d11 100%)',
         'gradient-sky-btn': 'linear-gradient(155deg, #f0f7ff 0%, #9bcff2 38%, #4a9adb 100%)',
         'gradient-sky-btn-hover': 'linear-gradient(155deg, #f7fbff 0%, #b8dff9 40%, #62afe8 100%)',
         'gradient-ghost': 'linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%)',

@@ -1,5 +1,5 @@
 <script>
-  import { link } from 'svelte-spa-router';
+  import { link } from './router.js';
   import { reveal } from './useReveal.js';
   import GoogleReviewLink from './GoogleReviewLink.svelte';
 
@@ -12,9 +12,11 @@
     },
     {
       tag: 'Aircraft',
-      title: 'Unified PA-28 Fleet',
+      title: 'PA-28 Fleet',
       body:
-        'Every aircraft in our fleet is a Piper PA-28. One cockpit, one checklist, one procedure. Fewer maintenance surprises and training that carries over cleanly from lesson to lesson.'
+        'Every aircraft in our fleet is a Piper PA-28. One cockpit family, one checklist flow, one procedure set. Fewer maintenance surprises and training that carries over cleanly from lesson to lesson.',
+      href: '/fleet',
+      cta: 'View the fleet'
     },
     {
       tag: 'Pricing',
@@ -83,6 +85,15 @@
                 <p class="mt-4 max-w-2xl text-sm leading-relaxed text-bone-200/75 sm:text-base">
                   {p.body}
                 </p>
+                {#if p.href}
+                  <a
+                    href={p.href}
+                    use:link
+                    class="mt-5 inline-block link-underline font-sans text-xs font-semibold uppercase tracking-[0.14em] text-sky-300"
+                  >
+                    {p.cta}
+                  </a>
+                {/if}
                 {#if p.tag === 'Pricing'}
                   <p class="mt-4 text-sm text-bone-200/60">
                     <a

@@ -8,6 +8,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     /* Custom site cursor (32×22; hotspot on nose, upper-right of art) */
     cursor: url('/cursor-plane.png') 9 5, auto;
   }
@@ -68,28 +69,29 @@
 
   /* Custom scrollbars (Firefox) */
   * {
-    scrollbar-width: thin;
-    scrollbar-color: #4a6f9e #142642;
+    scrollbar-width: auto;
+    scrollbar-color: #7a7f87 #1a1d23;
   }
 
   /* Chrome, Edge, Safari */
   *::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
   }
   *::-webkit-scrollbar-track {
-    background: #142642;
+    background: #1a1d23;
     border-radius: 999px;
   }
   *::-webkit-scrollbar-thumb {
-    background-color: #4a6f9e;
+    background-color: #7a7f87;
     border-radius: 999px;
+    border: 3px solid #1a1d23;
   }
   *::-webkit-scrollbar-thumb:hover {
-    background-color: #5c89c4;
+    background-color: #9aa0a8;
   }
   *::-webkit-scrollbar-corner {
-    background: #142642;
+    background: #1a1d23;
   }
 }
 

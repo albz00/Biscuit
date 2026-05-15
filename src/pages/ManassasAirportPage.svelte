@@ -1,15 +1,23 @@
 <script>
-  import { link } from 'svelte-spa-router';
+  import { link } from '../lib/router.js';
   import DemoCTA from '../lib/DemoCTA.svelte';
   import { reveal } from '../lib/useReveal.js';
 
   const airportName = 'Manassas Regional Airport (HEF)';
-  const airportAddress = '10600 Harry J. Parrish Boulevard, Manassas, VA 20110';
+  const airportAddress = 'Elevation Aviation, APP Jet Center, 9998 Wakeman Drive, Suite 204, Manassas, VA 20110';
   const mapsEmbedUrl =
-    'https://www.google.com/maps?q=10600+Harry+J.+Parrish+Boulevard,+Manassas,+VA+20110&output=embed';
+    'https://www.google.com/maps?q=Elevation+Aviation+9998+Wakeman+Drive+Suite+204+Manassas+VA+20110&output=embed';
   const mapsDirectionsUrl =
-    'https://www.google.com/maps/dir/?api=1&destination=10600+Harry+J.+Parrish+Boulevard,+Manassas,+VA+20110';
+    'https://www.google.com/maps/dir/?api=1&destination=Elevation+Aviation+9998+Wakeman+Drive+Suite+204+Manassas+VA+20110';
 </script>
+
+<svelte:head>
+  <title>Manassas Regional Airport · Elevation Aviation</title>
+  <meta
+    name="description"
+    content="Flight training at Manassas Regional Airport (HEF) in Northern Virginia—location, operations context, and how Elevation Aviation uses the airport for training."
+  />
+</svelte:head>
 
 <section class="relative overflow-hidden bg-ink-950 pt-28 pb-24 sm:pt-36 sm:pb-32">
   <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(61,147,227,0.18),transparent_42%)]"></div>
@@ -48,7 +56,7 @@
         use:reveal={{ delay: 340 }}
       >
         <h2 class="font-display text-2xl font-medium tracking-tight text-bone-50 sm:text-3xl">Airport Details</h2>
-        <p class="mt-4 text-sm uppercase tracking-[0.14em] text-sky-300/80">Address</p>
+        <p class="mt-4 text-sm uppercase tracking-[0.14em] text-sky-300/80">Elevation Aviation Address</p>
         <p class="mt-1 text-base leading-relaxed text-bone-100/90">{airportAddress}</p>
         <div class="mt-6 flex flex-wrap gap-3">
           <a

@@ -1,5 +1,5 @@
 <script>
-  import { link } from 'svelte-spa-router';
+  import { link } from '../lib/router.js';
   import DemoCTA from '../lib/DemoCTA.svelte';
   import { reveal } from '../lib/useReveal.js';
 
@@ -53,10 +53,10 @@
 
   const practicalLinks = [
     {
-      title: 'Aircraft dispatch',
+      title: 'Open Dispatch',
       href: 'https://forms.gle/4yXK1m6m4o7BcrZj8',
       external: true,
-      body: 'Reserve training aircraft through our dispatch form.'
+      body: 'Use the dispatch form for now. Scheduling integration is planned for a future update.'
     },
     {
       title: 'Flight Training Finance',
@@ -83,6 +83,14 @@
     }
   }
 </script>
+
+<svelte:head>
+  <title>Resources · Elevation Aviation</title>
+  <meta
+    name="description"
+    content="Site map, student links, and practical resources for flight training with Elevation Aviation at Manassas Regional Airport."
+  />
+</svelte:head>
 
 <section class="relative overflow-hidden bg-ink-900 py-28 sm:py-36">
   <div

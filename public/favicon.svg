@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32">
   <title>Elevation Aviation</title>
-  <!-- Same mark as the navbar: /logo.png with brightness(0) invert(1) on ink background -->
-  <rect width="32" height="32" rx="7" fill="#0c1629"/>
+  <!-- White tile so /logo.png’s own background blends; mark stays natural (dark on light). -->
+  <rect width="32" height="32" rx="7" fill="#ffffff"/>
   <image
     width="26"
     height="26"
@@ -10,6 +10,5 @@
     href="/logo.png"
     xlink:href="/logo.png"
     preserveAspectRatio="xMidYMid meet"
-    style="filter: brightness(0) invert(1)"
   />
 </svg>

@@ -83,6 +83,14 @@
   ];
 </script>
 
+<svelte:head>
+  <title>About · Elevation Aviation</title>
+  <meta
+    name="description"
+    content="Our student-forward approach to flight training at Manassas Regional Airport—mentorship, clear expectations, and paths for every certificate."
+  />
+</svelte:head>
+
 <div class="relative">
   <!-- Dark cap: fades over exactly py-28/py-36 so the nav area is dark and page text starts on light background -->
   <div
@@ -90,6 +98,38 @@
   ></div>
   <Philosophy />
 </div>
+
+<section class="relative overflow-hidden bg-bone-50 py-24 text-ink-900 sm:py-32">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_65%_45%_at_85%_0%,rgba(61,147,227,0.10),transparent_58%)]"></div>
+  <div class="container-x relative">
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start">
+      <div class="max-w-2xl lg:col-span-5">
+        <div class="eyebrow text-sky-700/85" use:reveal>Experience</div>
+        <h2
+          class="mt-6 font-display text-3xl font-medium leading-tight tracking-tight text-ink-900 sm:text-5xl"
+          use:reveal={{ delay: 80 }}
+        >
+          Broad aviation experience behind every lesson.
+        </h2>
+      </div>
+      <div
+        class="btn-clip border border-ink-900/[0.08] bg-white/80 p-6 shadow-[0_22px_54px_-36px_rgba(7,14,28,0.28)] sm:p-8 lg:col-span-7"
+        use:reveal={{ delay: 150 }}
+      >
+        <p class="text-base leading-relaxed text-ink-700 sm:text-lg">
+          Elevation Aviation is built on a strong general aviation background, not a narrow one-size-fits-all training
+          track. That experience shapes how we brief, teach, schedule, and help students make practical decisions in
+          and around the airplane.
+        </p>
+        <p class="mt-5 text-sm leading-relaxed text-ink-600 sm:text-base">
+          Our instructional approach draws from broad instructional and operational experience, giving students a
+          grounded perspective on real-world flying, aircraft care, airport operations, and the habits that support
+          safe, confident pilot development.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section
   class="relative overflow-hidden bg-ink-950 py-28 text-bone-50 sm:py-36"

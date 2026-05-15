@@ -1,5 +1,5 @@
 <script>
-  import { link } from 'svelte-spa-router';
+  import { link } from './router.js';
   import { reveal } from './useReveal.js';
   import GoogleReviewLink from './GoogleReviewLink.svelte';
 
@@ -78,6 +78,19 @@
         >
           Please fill out an<br />information request form below.
         </h2>
+        <div
+          class="btn-clip-sm mt-8 max-w-md border border-sky-700/30 bg-sky-50 px-4 py-4 shadow-[0_16px_34px_-24px_rgba(27,103,159,0.35)]"
+          use:reveal={{ delay: 180 }}
+        >
+          <p class="num-tag text-sky-700/85">Notice</p>
+          <p class="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-sky-700">
+            Walk-ins: please call first
+          </p>
+          <p class="mt-2 text-sm font-medium leading-relaxed text-ink-800">
+            Our office is currently staffed by instructors. For that reason, sometimes we are out flying. We encourage
+            walk-ins to call first to coordinate a time to stop by in case we are up flying.
+          </p>
+        </div>
         <p class="mt-8 max-w-md text-base leading-relaxed text-ink-700" use:reveal={{ delay: 200 }}>
           For appointments and information, call, text, or email.
         </p>
@@ -143,7 +156,7 @@
                   href="https://www.facebook.com/p/Elevation-Aviation-61574436880131/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex items-center gap-2 rounded-full border border-ink-900/10 bg-white px-4 py-2.5 text-sm font-semibold text-ink-800 shadow-[0_8px_24px_-16px_rgba(7,14,28,0.2)] transition-all hover:border-[#0866FF]/35 hover:bg-[#0866FF]/[0.06]"
+                  class="btn-clip-sm inline-flex items-center gap-2 border border-ink-900/10 bg-white px-4 py-2.5 text-sm font-semibold text-ink-800 shadow-[0_8px_24px_-16px_rgba(7,14,28,0.2)] transition-all hover:border-[#0866FF]/35 hover:bg-[#0866FF]/[0.06]"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
                     <path
@@ -157,7 +170,7 @@
                   href="https://www.instagram.com/elevationaviation/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex items-center gap-2 rounded-full border border-ink-900/10 bg-white px-4 py-2.5 text-sm font-semibold text-ink-800 shadow-[0_8px_24px_-16px_rgba(7,14,28,0.2)] transition-all hover:border-pink-500/30 hover:bg-gradient-to-br hover:from-purple-50 hover:to-pink-50"
+                  class="btn-clip-sm inline-flex items-center gap-2 border border-ink-900/10 bg-white px-4 py-2.5 text-sm font-semibold text-ink-800 shadow-[0_8px_24px_-16px_rgba(7,14,28,0.2)] transition-all hover:border-pink-500/30 hover:bg-gradient-to-br hover:from-purple-50 hover:to-pink-50"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
                     <defs>
@@ -178,21 +191,6 @@
             </dd>
           </div>
           <div>
-            <dt class="num-tag">Notice</dt>
-            <dd class="mt-2">
-              <p class="text-sm leading-relaxed text-ink-700">
-                IMPORTANT NOTICE: Our office is currently staffed by instructors. For that reason, sometimes we are out
-                flying. We encourage walk-ins to call first to coordinate a time to stop by in case we are up flying.
-              </p>
-              <a
-                href="https://forms.gle/4yXK1m6m4o7BcrZj8"
-                target="_blank"
-                rel="noopener"
-                class="mt-3 inline-block link-underline-dark text-sm text-ink-900"
-              >
-                Aircraft dispatch form
-              </a>
-            </dd>
             <img
               src="https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/9ee4b242-d084-4a7e-047e-9b5679facd00/public"
               alt=""

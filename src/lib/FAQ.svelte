@@ -1,5 +1,5 @@
 <script>
-  import { link } from 'svelte-spa-router';
+  import { link } from './router.js';
   import { reveal } from './useReveal.js';
 
   const faqs = [
@@ -9,9 +9,14 @@
         'We sit with each student and create a recurring scheduling that works for them. This schedule recurs each week until they achieve their rating, and can continue after they plan on training for additional ratings. This way our students never have to worry about constantly trying to get reservations to fly, and it makes it easier to schedule their life and work around their lessons. This also allows for students to fly as much as possible, increasing learning retention.'
     },
     {
-      q: 'Do you offer introductory flights?',
+      q: 'Do you offer demo flights?',
       a:
-        'We offer a one hour instructional demo flight. This is a perfect opportunity to see our operations, aircraft and staff as well as what it is like to train out of Manassas airport.'
+        'We offer a one hour instructional demo flight billed at the same rate as a regular instructional flight. This is a perfect opportunity to see our operations, aircraft, and staff as well as what it is like to train out of Manassas Airport.'
+    },
+    {
+      q: 'Can international students train with Elevation Aviation?',
+      a:
+        'Many international students inquire about training with us. International students may be subject to Transportation Security Administration (TSA) requirements before beginning flight training. These requirements are federal rules, not policies created or controlled by Elevation Aviation, and students are responsible for completing any required TSA process before eligible training can begin.'
     },
     {
       q: 'What are the payment options?',

@@ -1,5 +1,5 @@
 <script>
-  import { link } from 'svelte-spa-router';
+  import { link } from './router.js';
   import { reveal } from './useReveal.js';
   import GoogleReviewLink from './GoogleReviewLink.svelte';
 </script>
@@ -18,7 +18,7 @@
     <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-12">
       <div class="lg:col-span-7">
         <div class="text-[11px] font-semibold uppercase tracking-mega text-bone-50/90" use:reveal>
-          Introductory flight
+          Instructional demo flight
         </div>
         <h2
           class="mt-6 font-display text-4xl font-medium leading-[1] tracking-tight sm:text-5xl lg:text-6xl"
@@ -31,7 +31,8 @@
           <a href="/manassas-regional-airport-virginia" use:link class="link-underline text-bone-50 hover:text-sky-100">
             Manassas Regional Airport
           </a>.
-          Please call us at 571-657-3847 to set up a time to stop in and fly.
+          Demo flights are billed at the same rate as a regular instructional flight. Please call us at 571-657-3847
+          to set up a time to stop in and fly.
         </p>
         <div class="mt-8 flex flex-wrap items-center gap-4" use:reveal={{ delay: 280 }}>
           <GoogleReviewLink variant="on-dark" />

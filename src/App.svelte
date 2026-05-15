@@ -1,8 +1,8 @@
 <script>
   import { onMount } from 'svelte';
-  import Router from 'svelte-spa-router';
   import Nav from './lib/Nav.svelte';
   import Footer from './lib/Footer.svelte';
+  import { currentPath } from './lib/router.js';
   import Home from './pages/Home.svelte';
   import FleetPage from './pages/FleetPage.svelte';
   import TrainingPage from './pages/TrainingPage.svelte';
@@ -14,6 +14,10 @@
   import ContactPage from './pages/ContactPage.svelte';
   import ManassasAirportPage from './pages/ManassasAirportPage.svelte';
   import LoginPage from './pages/LoginPage.svelte';
+  import NotFoundPage from './pages/NotFoundPage.svelte';
+
+  const brandLogo =
+    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/cc79ee1b-e321-4111-3de5-8a0eb77b5000/public';
 
   const routes = {
     '/': Home,
@@ -26,9 +30,10 @@
     '/blog': BlogPage,
     '/contact': ContactPage,
     '/login': LoginPage,
-    '/manassas-regional-airport-virginia': ManassasAirportPage,
-    '*': Home
+    '/manassas-regional-airport-virginia': ManassasAirportPage
   };
+
+  $: ActivePage = routes[$currentPath] ?? NotFoundPage;
 
   let splashMounted = true;
   let splashExiting = false;
@@ -69,14 +74,10 @@
   >
     <div class="flex flex-col items-center gap-5 animate-fade-in motion-reduce:animate-none">
       <img
-        src="/logo.png"
-        alt=""
-        aria-hidden="true"
-        class="logo-mark h-16 w-auto brightness-0 invert drop-shadow-[0_0_24px_rgba(255,255,255,0.12)] sm:h-20"
+        src={brandLogo}
+        alt="Elevation Aviation"
+        class="h-20 w-auto max-w-[min(82vw,28rem)] brightness-0 invert drop-shadow-[0_0_24px_rgba(255,255,255,0.12)] sm:h-24"
       />
-      <p class="font-display text-center text-xl font-medium uppercase tracking-[0.22em] text-bone-50 sm:text-2xl">
-        Elevation Aviation
-      </p>
     </div>
     <div
       class="h-0.5 w-28 rounded-full bg-gradient-to-r from-transparent via-sky-400/70 to-transparent animate-pulse motion-reduce:animate-none"
@@ -87,6 +88,6 @@
 
 <Nav />
 <main>
-  <Router {routes} on:routeLoaded={() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' })} />
+  <svelte:component this={ActivePage} />
 </main>
 <Footer />

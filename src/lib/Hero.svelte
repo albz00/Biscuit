@@ -1,6 +1,6 @@
 <script>
   import { onDestroy, onMount } from 'svelte';
-  import { link } from 'svelte-spa-router';
+  import { link } from './router.js';
   import { reveal } from './useReveal.js';
   import GoogleReviewLink from './GoogleReviewLink.svelte';
 
@@ -16,6 +16,8 @@
   ];
 
   const ROTATE_MS = 9000;
+  const brandLogo =
+    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/994234eb-dcfc-41ba-7362-361904f74800/public';
 
   /** @type {0 | 1} */
   let activeBg = 0;
@@ -115,23 +117,33 @@
       </div>
 
       <div
-        class="w-full min-w-0 max-w-[14rem] sm:max-w-xs max-lg:mx-auto lg:max-w-none lg:col-span-5"
+        class="w-full min-w-0 max-w-[14rem] -translate-y-6 sm:max-w-xs max-lg:mx-auto lg:max-w-none lg:col-span-5 lg:-translate-y-12"
         use:reveal={{ delay: 200 }}
       >
         <div
           class="hero-logo-dock relative z-0 mx-auto flex w-full min-w-0 max-w-xs items-center justify-center lg:max-w-sm lg:justify-end"
         >
           <a
-            href="/"
+            href="/manassas-regional-airport-virginia"
             use:link
-            class="hero-logo-link relative z-10 block w-full"
-            aria-label="Elevation Aviation home"
+            class="hero-logo-link relative z-10 flex aspect-square w-full items-center justify-center rounded-full border border-white/15 bg-ink-950/30 p-5 shadow-[0_28px_70px_-38px_rgba(0,0,0,0.75),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-[2px] transition-transform hover:scale-[1.015] sm:p-7"
+            aria-label="Manassas Regional Airport page"
           >
+            <div class="absolute inset-0 overflow-hidden rounded-full">
+              <img
+                src="https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/fa53bda0-3d57-4987-6279-4c44cad18c00/public"
+                alt=""
+                aria-hidden="true"
+                class="h-full w-full object-cover opacity-35 saturate-75"
+                loading="eager"
+                decoding="async"
+              />
+              <div class="absolute inset-0 bg-ink-950/45"></div>
+            </div>
             <img
-              src="/logo.png"
-              alt=""
-              class="hero-logo-img h-auto w-full max-h-40 object-contain sm:max-h-48 lg:max-h-56"
-              aria-hidden="true"
+              src={brandLogo}
+              alt="Elevation Aviation"
+              class="hero-logo-img relative z-10 h-auto w-[112%] max-w-none -translate-y-3 object-contain sm:w-[116%] sm:-translate-y-4 lg:w-[122%] lg:-translate-y-5"
               fetchpriority="high"
               decoding="async"
             />
@@ -169,6 +181,5 @@
 
   .hero-logo-img {
     display: block;
-    filter: brightness(0) invert(1);
   }
 </style>

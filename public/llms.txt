@@ -1,0 +1,35 @@
+# Elevation Aviation
+
+> Personalized flight training at Manassas Regional Airport in Manassas, Virginia.
+
+Elevation Aviation provides private pilot, instrument, and commercial flight training with recurring weekly lessons, mentorship-first instruction, and a Piper PA-28 training fleet. The school is based at Manassas Regional Airport (HEF).
+
+Contact: elevation@elevationflight.com, 571-657-3847
+Location: APP Jet Center, 9998 Wakeman Drive, Suite 204, Manassas, VA 20110
+Website: https://elevationflight.com/
+
+## Primary Pages
+
+- [Home](https://elevationflight.com/): Overview of Elevation Aviation, training approach, aircraft, testimonials, and contact options.
+- [Training](https://elevationflight.com/training): Private pilot, instrument, and commercial training paths with recurring scheduling and mentorship.
+- [Fleet](https://elevationflight.com/fleet): Piper PA-28 training aircraft, avionics context, and fleet philosophy.
+- [Instructors](https://elevationflight.com/instructors): Certificated flight instructors and team members supporting students.
+- [FAQs](https://elevationflight.com/faqs): Answers about scheduling, demo flights, payment options, and training expectations.
+- [About](https://elevationflight.com/about): Mission, training philosophy, student-forward approach, and photo gallery.
+- [Resources](https://elevationflight.com/resources): Site index and practical links for students.
+- [Blog](https://elevationflight.com/blog): Training notes and future updates from the flight line.
+- [Contact](https://elevationflight.com/contact): Phone, email, and inquiry options for scheduling and questions.
+- [Manassas Regional Airport](https://elevationflight.com/manassas-regional-airport-virginia): Airport details, directions, and local training context for HEF.
+
+## Useful Context
+
+- Elevation Aviation trains from Manassas Regional Airport (HEF) in Northern Virginia.
+- The training model emphasizes recurring weekly lessons, clear expectations, and instructor mentorship.
+- The fleet centers on Piper PA-28 aircraft for consistent cockpit procedures.
+- Students can contact the office for scheduling, demo flights, payment questions, and next steps.
+
+## External Resources
+
+- [Open Dispatch](https://forms.gle/4yXK1m6m4o7BcrZj8): Current aircraft dispatch form.
+- [Flight Training Finance](https://www.flighttrainingfinancellc.com): Third-party flight training financing options.
+- [Manassas Regional Airport](https://flyhef.com/): Official airport website for HEF.

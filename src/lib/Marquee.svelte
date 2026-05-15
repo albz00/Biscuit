@@ -1,9 +1,9 @@
 <script>
-  import { link } from 'svelte-spa-router';
+  import { link } from './router.js';
 
   const items = [
     'Weekly Recurring Lessons',
-    'Unified Piper Fleet',
+    'PA-28 Fleet',
     'Pay As You Fly',
     'Free Training Consultation',
     'Manassas Regional Airport',

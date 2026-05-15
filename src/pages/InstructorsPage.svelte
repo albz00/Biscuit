@@ -1,5 +1,5 @@
 <script>
-  import { link } from 'svelte-spa-router';
+  import { link } from '../lib/router.js';
   import DemoCTA from '../lib/DemoCTA.svelte';
   import GoogleReviewLink from '../lib/GoogleReviewLink.svelte';
   import { reveal } from '../lib/useReveal.js';
@@ -12,42 +12,49 @@
     {
       name: 'Ian Tracey',
       ratings: ['CFI', 'CFII', 'AGI', 'A&P'],
+      showContact: true,
       photo:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/051dca37-74aa-41c4-0b5c-ebbf485f6000/public'
     },
     {
       name: 'Erich Deitsch',
       ratings: ['CFI', 'CFII', 'AGI', 'ATP'],
+      showContact: true,
       photo:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/a7faed74-a2b3-4dd7-8348-8407a9752300/public'
     },
     {
       name: 'Keith Teister',
       ratings: ['CFI', 'CFII', 'MEI', 'G-CFI', 'ATP'],
+      showContact: true,
       photo:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/1b4551ab-d14c-43e2-58e0-1b1948db3b00/public'
     },
     {
       name: 'Alexander England',
       ratings: ['CFI', 'CFII'],
+      showContact: false,
       photo:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/9e190b60-6d7d-4e98-753b-bf7d76682f00/public'
     },
     {
       name: 'Mitchell Finn',
       ratings: ['CFI', 'CFII'],
+      showContact: false,
       photo:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/e0516ec9-3286-4b3b-2795-900e2a355500/public'
     },
     {
       name: 'Mike Esti',
       ratings: ['CFI', 'CFII', 'MEI'],
+      showContact: false,
       photo:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/851fe212-314f-4f22-7811-9233ed37e600/public'
     },
     {
       name: 'Amanda Behrens',
       ratings: ['CFI', 'CFII', 'MEI'],
+      showContact: false,
       photo:
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/a10c23f3-1536-49e8-d344-9ae82dd60800/public'
     }
@@ -59,7 +66,7 @@
     { code: 'AGI', title: 'Advanced Ground Instructor' },
     { code: 'A&P', title: 'Airframe and Powerplant Mechanic' },
     { code: 'MEI', title: 'Multi-Engine Instructor' },
-    { code: 'G-CFI', title: 'Gold Seal Flight Instructor' },
+    { code: 'G-CFI', title: 'Glider Certified Flight Instructor' },
     { code: 'ATP', title: 'Airline Transport Pilot' }
   ];
 
@@ -70,6 +77,14 @@
     return `mailto:${officeEmail}?subject=${subject}`;
   }
 </script>
+
+<svelte:head>
+  <title>Instructors · Elevation Aviation</title>
+  <meta
+    name="description"
+    content="Meet the certificated flight instructors and team guiding private, instrument, and commercial training at Elevation Aviation in Manassas, Virginia."
+  />
+</svelte:head>
 
 <section
   class="relative overflow-hidden bg-gradient-to-b from-bone-50 via-bone-100 to-bone-50 pt-28 pb-24 text-ink-900 sm:pt-36 sm:pb-32"
@@ -107,7 +122,7 @@
           Learn with a credentialed instructor team based at Manassas Regional Airport.
         </p>
         <p class="mt-4 text-sm leading-relaxed text-ink-600">
-          The direct links below route through the office contact channels we can verify.
+          Contact buttons are listed under Ian, Erich, and Keith and route through the office channels we can verify.
         </p>
       </div>
     </div>
@@ -148,27 +163,29 @@
             <div
               class="mt-5 h-px w-0 bg-sky-500 transition-all duration-700 group-hover:w-12"
             ></div>
-            <div class="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-3">
-              <a
-                href={contactHref}
-                use:link
-                class="btn-clip-sm inline-flex items-center justify-center border border-ink-900/10 bg-ink-900 px-3 py-2.5 text-center text-[10px] font-semibold uppercase tracking-[0.14em] text-bone-50 transition-all hover:-translate-y-px hover:bg-sky-800"
-              >
-                Contact
-              </a>
-              <a
-                href={emailHref(member.name)}
-                class="btn-clip-sm inline-flex items-center justify-center border border-sky-700/20 bg-sky-50 px-3 py-2.5 text-center text-[10px] font-semibold uppercase tracking-[0.14em] text-sky-800 transition-all hover:-translate-y-px hover:border-sky-700/35 hover:bg-sky-100"
-              >
-                Email
-              </a>
-              <a
-                href={phoneHref}
-                class="btn-clip-sm inline-flex items-center justify-center border border-ink-900/10 bg-white px-3 py-2.5 text-center text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-700 transition-all hover:-translate-y-px hover:border-sky-700/25 hover:text-sky-700"
-              >
-                Call
-              </a>
-            </div>
+            {#if member.showContact}
+              <div class="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-3">
+                <a
+                  href={contactHref}
+                  use:link
+                  class="btn-clip-sm inline-flex items-center justify-center border border-ink-900/10 bg-ink-900 px-3 py-2.5 text-center text-[10px] font-semibold uppercase tracking-[0.14em] text-bone-50 transition-all hover:-translate-y-px hover:bg-sky-800"
+                >
+                  Contact
+                </a>
+                <a
+                  href={emailHref(member.name)}
+                  class="btn-clip-sm inline-flex items-center justify-center border border-sky-700/20 bg-sky-50 px-3 py-2.5 text-center text-[10px] font-semibold uppercase tracking-[0.14em] text-sky-800 transition-all hover:-translate-y-px hover:border-sky-700/35 hover:bg-sky-100"
+                >
+                  Email
+                </a>
+                <a
+                  href={phoneHref}
+                  class="btn-clip-sm inline-flex items-center justify-center border border-ink-900/10 bg-white px-3 py-2.5 text-center text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-700 transition-all hover:-translate-y-px hover:border-sky-700/25 hover:text-sky-700"
+                >
+                  Call
+                </a>
+              </div>
+            {/if}
           </div>
         </article>
       {/each}

@@ -1,7 +1,15 @@
 <script>
-  import { link } from 'svelte-spa-router';
+  import { link } from '../lib/router.js';
   import { reveal } from '../lib/useReveal.js';
 </script>
+
+<svelte:head>
+  <title>Blog · Elevation Aviation</title>
+  <meta
+    name="description"
+    content="Training articles and updates from Elevation Aviation. Check back for new posts from the flight line."
+  />
+</svelte:head>
 
 <section class="relative overflow-hidden bg-ink-900 py-28 sm:py-36">
   <div

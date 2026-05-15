@@ -11,6 +11,11 @@
   }
 </script>
 
+<svelte:head>
+  <title>Login · Elevation Aviation</title>
+  <meta name="description" content="Student and staff login for Elevation Aviation resources." />
+</svelte:head>
+
 <section class="relative overflow-hidden bg-ink-900 py-28 sm:py-36">
   <div
     class="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_60%_45%_at_85%_8%,rgba(176,217,245,0.10),transparent_58%)]"

@@ -1,13 +1,17 @@
 <script>
   import { onMount } from 'svelte';
-  import { link } from 'svelte-spa-router';
-  import active from 'svelte-spa-router/active';
+  import { active, link } from './router.js';
 
   let scrolled = false;
   let mobileOpen = false;
 
   const resourceLinks = [
     { href: '/resources', label: 'Resource hub', description: 'Site map and student links' },
+    {
+      href: 'https://forms.gle/4yXK1m6m4o7BcrZj8',
+      label: 'Open Dispatch',
+      description: 'Aircraft dispatch form'
+    },
     { href: '/blog', label: 'Blog', description: 'Training notes and updates' }
   ];
 
@@ -19,6 +23,9 @@
     { href: '/faqs', label: 'FAQs' },
     { href: '/about', label: 'About' }
   ];
+
+  const brandLogo =
+    'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/cc79ee1b-e321-4111-3de5-8a0eb77b5000/public';
 
   onMount(() => {
     const onScroll = () => {
@@ -49,22 +56,18 @@
     class="container-x relative flex h-20 items-center justify-between gap-4 transition-[height] duration-500"
     class:h-16={scrolled}
   >
-    <a href="/" use:link class="group flex min-w-0 shrink items-center gap-2.5 sm:gap-3">
+    <a href="/" use:link class="group flex min-w-0 shrink items-center gap-2.5 sm:gap-3 lg:z-10">
       <img
-        src="/logo.png"
-        alt=""
-        aria-hidden="true"
-        class="logo-mark h-8 w-auto shrink-0 sm:h-9"
+        src={brandLogo}
+        alt="Elevation Aviation"
+        class="h-8 w-auto max-w-[10.5rem] shrink-0 brightness-0 invert sm:h-10 sm:max-w-[13rem]"
         fetchpriority="high"
         decoding="async"
       />
-      <span class="hidden truncate font-display text-[0.78rem] font-medium uppercase tracking-[0.14em] text-bone-50 min-[400px]:inline sm:text-base sm:tracking-[0.22em]">
-        Elevation Aviation
-      </span>
     </a>
 
     <nav
-      class="btn-clip-sm hidden items-center gap-0.5 border border-white/15 bg-gradient-nav-pill p-0.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] lg:flex"
+      class="btn-clip-sm hidden items-center gap-0.5 border border-white/15 bg-gradient-nav-pill p-0.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] lg:absolute lg:left-1/2 lg:flex lg:-translate-x-1/2"
       aria-label="Primary"
     >
       {#each links as item}
@@ -126,7 +129,7 @@
       </div>
     </nav>
 
-    <div class="flex shrink-0 items-center gap-2 sm:gap-3">
+    <div class="flex shrink-0 items-center gap-2 sm:gap-3 lg:z-10">
       <a
         href="tel:5716573847"
         class="hidden text-sm font-semibold tabular-nums tracking-[0.06em] text-bone-200/85 transition-colors hover:text-sky-300 xl:inline"
