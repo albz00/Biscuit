@@ -9,6 +9,7 @@
     uploadProfilePhoto,
     sendPasswordReset
   } from '../lib/auth.js';
+  import { updatePostsByAuthor } from '../lib/blogs.js';
 
   let displayName = '';
   let photoPreview = '';
@@ -67,12 +68,19 @@
       if (photoFile) {
         photoURL = await uploadProfilePhoto(photoFile, $user.uid);
       }
+      const savedName = displayName.trim();
       await updateUserProfile({
-        displayName: displayName.trim() || undefined,
+        displayName: savedName || undefined,
         photoURL
       });
+      if ($user?.email) {
+        await updatePostsByAuthor($user.email, {
+          authorName: savedName,
+          authorPhotoUrl: photoURL || ''
+        });
+      }
       photoFile = null;
-      profileMessage = 'Profile saved.';
+      profileMessage = 'Profile saved. Your name and photo on blog posts were updated too.';
     } catch (e) {
       profileError = e?.message || 'Could not save profile. Try again.';
     } finally {

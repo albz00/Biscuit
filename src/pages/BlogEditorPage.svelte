@@ -23,6 +23,7 @@
   let coverFile = null;
   let authorEmail = '';
   let authorName = '';
+  let authorPhotoUrl = '';
   let loading = true;
   let saving = false;
   let deleting = false;
@@ -62,6 +63,7 @@
       }
       authorEmail = existing.authorEmail || $user?.email || '';
       authorName = existing.authorName || $user?.displayName || '';
+      authorPhotoUrl = existing.authorPhotoUrl || $user?.photoURL || '';
       title = existing.title;
       excerpt = existing.excerpt;
       body = existing.body;
@@ -71,6 +73,7 @@
     } else {
       authorEmail = $user?.email || '';
       authorName = $user?.displayName || '';
+      authorPhotoUrl = $user?.photoURL || '';
     }
     loading = false;
   }
@@ -112,7 +115,8 @@
           coverImageUrl,
           published,
           authorEmail,
-          authorName
+          authorName: $user?.displayName || authorName,
+          authorPhotoUrl: $user?.photoURL || authorPhotoUrl
         },
         previousSlug || undefined
       );

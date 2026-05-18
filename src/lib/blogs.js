@@ -9,7 +9,8 @@ import {
   where,
   orderBy,
   serverTimestamp,
-  Timestamp
+  Timestamp,
+  writeBatch
 } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from './firebase.js';
@@ -29,6 +30,7 @@ const POSTS = 'posts';
  * @property {import('firebase/firestore').Timestamp | null} [updatedAt]
  * @property {string} [authorEmail]
  * @property {string} [authorName]
+ * @property {string} [authorPhotoUrl]
  */
 
 /**
@@ -56,7 +58,8 @@ function fromDoc(id, data) {
     createdAt: asTimestamp(data.createdAt),
     updatedAt: asTimestamp(data.updatedAt),
     authorEmail: data.authorEmail ?? '',
-    authorName: data.authorName ?? ''
+    authorName: data.authorName ?? '',
+    authorPhotoUrl: data.authorPhotoUrl ?? ''
   };
 }
 
@@ -138,6 +141,7 @@ export async function savePost(post, previousSlug) {
     published: Boolean(post.published),
     authorEmail: post.authorEmail || '',
     authorName: post.authorName || '',
+    authorPhotoUrl: post.authorPhotoUrl || '',
     createdAt,
     updatedAt: serverTimestamp()
   });
@@ -152,6 +156,41 @@ export async function savePost(post, previousSlug) {
  */
 export async function deletePost(slug) {
   await deleteDoc(doc(db, POSTS, slug));
+}
+
+/**
+ * Sync display name and photo across all posts by this author.
+ * @param {string} authorEmail
+ * @param {{ authorName?: string; authorPhotoUrl?: string }} profile
+ */
+export async function updatePostsByAuthor(authorEmail, profile) {
+  const email = authorEmail?.trim();
+  if (!email) return;
+
+  const normalized = email.toLowerCase();
+  const postsRef = collection(db, POSTS);
+  /** @type {import('firebase/firestore').QueryDocumentSnapshot[]} */
+  let docs = [];
+
+  try {
+    const snap = await getDocs(query(postsRef, where('authorEmail', '==', email)));
+    docs = snap.docs;
+  } catch {
+    const snap = await getDocs(postsRef);
+    docs = snap.docs.filter((d) => (d.data().authorEmail || '').toLowerCase() === normalized);
+  }
+
+  if (docs.length === 0) return;
+
+  const batch = writeBatch(db);
+  for (const docSnap of docs) {
+    /** @type {Record<string, string | import('firebase/firestore').FieldValue>} */
+    const updates = { updatedAt: serverTimestamp() };
+    if (profile.authorName !== undefined) updates.authorName = profile.authorName;
+    if (profile.authorPhotoUrl !== undefined) updates.authorPhotoUrl = profile.authorPhotoUrl;
+    batch.update(docSnap.ref, updates);
+  }
+  await batch.commit();
 }
 
 /**

@@ -3,7 +3,8 @@
   import { link } from '../lib/router.js';
   import { reveal } from '../lib/useReveal.js';
   import { user, signOut } from '../lib/auth.js';
-  import { listPosts, formatPostByline } from '../lib/blogs.js';
+  import { listPosts } from '../lib/blogs.js';
+  import PostAuthor from '../lib/PostAuthor.svelte';
 
   /** @type {import('../lib/blogs.js').BlogPost[]} */
   let posts = [];
@@ -118,13 +119,13 @@
                 />
               {/if}
               <div class="flex flex-1 flex-col p-6">
-                <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-sky-300/75">
-                  {formatPostByline(post)}
+                <div class="mb-4">
+                  <PostAuthor {post} variant="compact" />
                   {#if !post.published}
-                    <span class="ml-2 text-amber-300/90">· Draft</span>
+                    <p class="mt-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-amber-300/90">Draft</p>
                   {/if}
-                </p>
-                <h2 class="mt-3 font-display text-xl font-medium tracking-tight text-bone-50 group-hover:text-sky-200">
+                </div>
+                <h2 class="font-display text-xl font-medium tracking-tight text-bone-50 group-hover:text-sky-200">
                   {post.title}
                 </h2>
                 {#if post.excerpt}

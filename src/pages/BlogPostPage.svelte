@@ -3,7 +3,8 @@
   import { link, navigate, routeParams } from '../lib/router.js';
   import { reveal } from '../lib/useReveal.js';
   import { user } from '../lib/auth.js';
-  import { getPost, formatPostByline, canManagePost, deletePost } from '../lib/blogs.js';
+  import { getPost, canManagePost, deletePost } from '../lib/blogs.js';
+  import PostAuthor from '../lib/PostAuthor.svelte';
   import { pageSeoOverride, SITE_NAME } from '../lib/seo.js';
 
   /** @type {import('../lib/blogs.js').BlogPost | null} */
@@ -108,11 +109,11 @@
           </p>
         {/if}
 
-        <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-sky-300/80" use:reveal>
-          {formatPostByline(post)}
-        </p>
+        <div class="mt-2" use:reveal>
+          <PostAuthor {post} variant="prominent" />
+        </div>
         <h1
-          class="mt-4 font-display text-4xl font-medium leading-[1.08] tracking-tight text-bone-50 sm:text-5xl"
+          class="mt-8 font-display text-4xl font-medium leading-[1.08] tracking-tight text-bone-50 sm:text-5xl"
           use:reveal={{ delay: 80 }}
         >
           {post.title}
