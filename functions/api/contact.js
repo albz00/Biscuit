@@ -15,6 +15,46 @@ function fieldRow(label, value) {
   return `<tr><td style="padding:8px 12px 8px 0;font-weight:600;color:#374151;vertical-align:top">${escapeHtml(label)}</td><td style="padding:8px 0;color:#111827">${safe}</td></tr>`;
 }
 
+function firstName(fullName) {
+  const part = String(fullName ?? '').trim().split(/\s+/)[0];
+  return part || 'there';
+}
+
+function confirmationHtml(name, preferredContact) {
+  const greeting = escapeHtml(firstName(name));
+  const method = escapeHtml(String(preferredContact ?? '').toLowerCase() || 'your preferred method');
+  return `
+    <p style="font-family:system-ui,sans-serif;font-size:15px;color:#111827;margin:0 0 16px">Hi ${greeting},</p>
+    <p style="font-family:system-ui,sans-serif;font-size:15px;color:#111827;line-height:1.6;margin:0 0 16px">
+      Thank you for contacting Elevation Aviation. We received your information request and will follow up by ${method} as soon as we can.
+    </p>
+    <p style="font-family:system-ui,sans-serif;font-size:15px;color:#111827;line-height:1.6;margin:0 0 16px">
+      If you need something sooner, call our office at <strong>571-657-3847</strong> (Mon–Sun, 8:00am–6:00pm) or after hours at <strong>703-625-3517</strong>.
+    </p>
+    <p style="font-family:system-ui,sans-serif;font-size:14px;color:#6b7280;margin:24px 0 0">
+      Elevation Aviation · Manassas Regional Airport
+    </p>
+  `.trim();
+}
+
+async function sendResendEmail(apiKey, payload) {
+  const res = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    return { ok: false, status: res.status, text };
+  }
+
+  return { ok: true };
+}
+
 async function verifyTurnstile(token, secret, remoteip) {
   const body = new URLSearchParams({ secret, response: token });
   if (remoteip) body.set('remoteip', remoteip);
@@ -132,21 +172,27 @@ export async function onRequestPost(context) {
     emailPayload.reply_to = trimmedEmail;
   }
 
-  const resendRes = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${resendApiKey}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(emailPayload)
-  });
+  const officeResult = await sendResendEmail(resendApiKey, emailPayload);
 
-  if (!resendRes.ok) {
-    console.error('Resend error', resendRes.status, await resendRes.text());
+  if (!officeResult.ok) {
+    console.error('Resend office email error', officeResult.status, officeResult.text);
     return new Response(JSON.stringify({ error: 'Unable to send message. Please call the office.' }), {
       status: 502,
       headers: { 'Content-Type': 'application/json' }
     });
+  }
+
+  if (trimmedEmail) {
+    const confirmResult = await sendResendEmail(resendApiKey, {
+      from: CONTACT_FROM,
+      to: [trimmedEmail],
+      subject: 'We received your message — Elevation Aviation',
+      html: confirmationHtml(trimmedName, trimmedPreferred)
+    });
+
+    if (!confirmResult.ok) {
+      console.error('Resend confirmation email error', confirmResult.status, confirmResult.text);
+    }
   }
 
   return new Response(JSON.stringify({ ok: true }), {
