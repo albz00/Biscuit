@@ -11,14 +11,6 @@
     'https://www.google.com/maps/dir/?api=1&destination=Elevation+Aviation+9998+Wakeman+Drive+Suite+204+Manassas+VA+20110';
 </script>
 
-<svelte:head>
-  <title>Manassas Regional Airport · Elevation Aviation</title>
-  <meta
-    name="description"
-    content="Flight training at Manassas Regional Airport (HEF) in Northern Virginia—location, operations context, and how Elevation Aviation uses the airport for training."
-  />
-</svelte:head>
-
 <section class="relative overflow-hidden bg-ink-950 pt-28 pb-24 sm:pt-36 sm:pb-32">
   <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(61,147,227,0.18),transparent_42%)]"></div>
   <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_100%_100%,rgba(42,111,158,0.16),transparent_48%)]"></div>

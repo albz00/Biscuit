@@ -1,14 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <title>Elevation Aviation</title>
-  <!-- White tile so /logo.png’s own background blends; mark stays natural (dark on light). -->
-  <rect width="32" height="32" rx="7" fill="#ffffff"/>
-  <image
-    width="26"
-    height="26"
-    x="3"
-    y="3"
-    href="/logo.png"
-    xlink:href="/logo.png"
-    preserveAspectRatio="xMidYMid meet"
-  />
+  <image width="32" height="32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAADHUlEQVR4nO2VS2gTQRzGE5OKehFBvEixBy8ivlAUQfFiK9aDoIiHKj4OvlA8KHhRVkSFWBUVBENRUVE0gvWJVUm3avNo2Jo2TerWNo1tkiZkN7rZJJtNssknk240ioeqqXrIB8vMzs7M/uY/3/xHo6mooor+RwGYAEBPyv8BpIqiqL8HYjKZdILA16ZSqQ0AJqsgJBpVALTj9mOMTj6Boii9LGeaUFDugaIomyma1hfgAB01CqMbLwjdaJldHQpFhN7hGKQs4gBaAKwrAdWQbSm7RwBoi/sdSyaNu8+ZMb/BKDWcNONxuzfBRULPWXbgtJiQNwKYVBxTVhCGYarUiVf2D/rCNiebOdLEZKo33cG8TeexfuvB/ItXdD6nZO0A6orAqmG/gqhgOuIp8mg0mrH5B4DWaDQWIGRZui7EBGTSsujzc+mdBjq9dv/N1PL6XfKxUxfhH/blAVwFpNnqWGLUgkdI+dtRgDoYwAoHy0WOXnqq9Hl9MrFlz0A0d/wqo9RtO5NcsmafdPnJR3xOJsMAGlZRtJ6stugTSfy0ElAOJ6KJBcUojZVASxxPqo5O54l7Ty3B563vQoFgyBONjMjh4BDsruG84YYjN7X+trxw70u8cfHErOcATGuh3bNJXcnlgj4+g8jnuB2Qqsl86nb8UjQmApgr8PxSmrbVvLYy2y1Wm/edvS3V292ZdroHsMfwSp63o1k+er0bQyNcB5DrGQzEYLjlyF5p7gIvCBfI6tWTM/ZcgpLO344olt419/kPnX2otFs74u97nEKMD6DDyeJAYwt2n7fgcfsgvB/DicFAFJEIZ4+Humb81uqJMEqtc7vdEwvvwEyr3fHixv1WmC2uD54+/zIPy+7t/+B5a35tiz9r7cwbrtH55jYWkpSM8nywtvR0/ZGgRgSiOB3ILAakWSXf9D5fYFGXy0UNeVmry9MfDIS4VDwuPuJ5fk7p+D+GwPdbUzjvP7TpgVQNx41s4TiuTRTFRjVPaMsGYTKZdD/ekqSNpmk98C3pkD4Mw0wZt/vjZyqJSiExaf6lUO67oqKKKtKUWV8AmfmJEZUjEJMAAAAASUVORK5CYII="/>
 </svg>

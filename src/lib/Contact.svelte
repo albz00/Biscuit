@@ -1,10 +1,13 @@
 <script>
+  import { onMount } from 'svelte';
   import { link } from './router.js';
   import { reveal } from './useReveal.js';
   import GoogleReviewLink from './GoogleReviewLink.svelte';
 
   /** When true (standalone /contact page), adds the top ink fade so the fixed nav reads on this light section. */
   export let navDarkCap = false;
+
+  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY ?? '';
 
   let name = '';
   let preferredDate = '';
@@ -17,7 +20,13 @@
   let phone = '';
 
   let submitted = false;
+  let submitting = false;
   let contactError = '';
+  let turnstileToken = '';
+  /** @type {HTMLElement | null} */
+  let turnstileContainer = null;
+  /** @type {string | undefined} */
+  let turnstileWidgetId;
 
   const trainingOptions = [
     'Private Pilot',
@@ -29,7 +38,50 @@
 
   const contactMethods = ['Call', 'Email', 'Text'];
 
-  function submit() {
+  onMount(() => {
+    if (!turnstileSiteKey || !turnstileContainer) return;
+
+    const existing = document.querySelector('script[data-turnstile]');
+    const renderWidget = () => {
+      if (!turnstileContainer || !window.turnstile || turnstileWidgetId) return;
+      turnstileWidgetId = window.turnstile.render(turnstileContainer, {
+        sitekey: turnstileSiteKey,
+        theme: 'light',
+        callback: (token) => {
+          turnstileToken = token;
+        },
+        'expired-callback': () => {
+          turnstileToken = '';
+        },
+        'error-callback': () => {
+          turnstileToken = '';
+        }
+      });
+    };
+
+    if (existing) {
+      if (window.turnstile) renderWidget();
+      else existing.addEventListener('load', renderWidget);
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    script.async = true;
+    script.defer = true;
+    script.dataset.turnstile = 'true';
+    script.onload = renderWidget;
+    document.head.appendChild(script);
+  });
+
+  function resetTurnstile() {
+    turnstileToken = '';
+    if (turnstileWidgetId && window.turnstile) {
+      window.turnstile.reset(turnstileWidgetId);
+    }
+  }
+
+  async function submit() {
     contactError = '';
     if (!name.trim()) return;
     if (!trainingLevel) return;
@@ -40,7 +92,50 @@
       contactError = 'Please provide an email, a phone number, or both.';
       return;
     }
-    submitted = true;
+    if (!turnstileSiteKey) {
+      contactError = 'Form is not configured. Please call or email the office.';
+      return;
+    }
+    if (!turnstileToken) {
+      contactError = 'Please complete the security check below.';
+      return;
+    }
+
+    submitting = true;
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name.trim(),
+          preferredDate,
+          trainingLevel,
+          additionalQuestions: additionalQuestions.trim(),
+          preferredContact,
+          email: email.trim(),
+          phone: phone.trim(),
+          turnstileToken
+        })
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        contactError =
+          typeof data.error === 'string'
+            ? data.error
+            : 'Something went wrong. Please try again or call the office.';
+        resetTurnstile();
+        return;
+      }
+
+      submitted = true;
+    } catch {
+      contactError = 'Unable to reach the server. Please try again or call the office.';
+      resetTurnstile();
+    } finally {
+      submitting = false;
+    }
   }
 
   /** @type {string} */
@@ -354,11 +449,16 @@
               </div>
             </div>
 
-            <div
-              class="flex flex-wrap items-center justify-between gap-4 border-t border-ink-900/12 bg-bone-100/90 px-5 py-5 sm:px-8"
-            >
-              <p class="max-w-md text-xs leading-relaxed text-ink-600">Submit this form and we will follow up.</p>
-              <button type="submit" class="btn-primary shrink-0">Submit</button>
+            <div class="border-t border-ink-900/12 bg-bone-100/90 px-5 py-5 sm:px-8">
+              {#if turnstileSiteKey}
+                <div bind:this={turnstileContainer} class="flex min-h-[65px] justify-start"></div>
+              {/if}
+              <div class="mt-5 flex flex-wrap items-center justify-between gap-4">
+                <p class="max-w-md text-xs leading-relaxed text-ink-600">Submit this form and we will follow up.</p>
+                <button type="submit" class="btn-primary shrink-0" disabled={submitting}>
+                  {submitting ? 'Sending…' : 'Submit'}
+                </button>
+              </div>
             </div>
           {/if}
         </form>

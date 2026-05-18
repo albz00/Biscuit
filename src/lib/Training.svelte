@@ -2,7 +2,7 @@
   import { link } from './router.js';
   import { reveal } from './useReveal.js';
 
-  /** `'none'` (default) | `'contact'` — training page uses contact. */
+  /** `'none'` (default) | `'contact'` - training page uses contact. */
   export let endCta = 'none';
 
   const tracks = [

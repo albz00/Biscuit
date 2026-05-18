@@ -19,7 +19,7 @@
     {
       name: 'Ben Newbold',
       quote:
-        'The instructors are incredibly knowledgeable and truly invested in their students\' success. One of the best parts about training here is how they structure a dedicated block with a specific plane reserved for each student — it makes a huge difference in consistency and overall learning quality. Compared to other programs, the organization and professionalism at Elevation set them apart. Highly recommend for anyone serious about flight training!',
+        'The instructors are incredibly knowledgeable and truly invested in their students\' success. One of the best parts about training here is how they structure a dedicated block with a specific plane reserved for each student, which makes a huge difference in consistency and overall learning quality. Compared to other programs, the organization and professionalism at Elevation set them apart. Highly recommend for anyone serious about flight training!',
       reviewUrl: 'https://share.google/kCNRbA4ydYKa5vlHj'
     }
   ];

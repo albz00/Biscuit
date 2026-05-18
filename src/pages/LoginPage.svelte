@@ -1,20 +1,38 @@
 <script>
   import { reveal } from '../lib/useReveal.js';
+  import { link, navigate } from '../lib/router.js';
+  import { signIn, user, authReady } from '../lib/auth.js';
 
   let email = '';
   let password = '';
-  let submitted = false;
+  let loading = false;
+  let error = '';
 
-  function submitLogin() {
+  $: if ($authReady && $user) {
+    navigate('/blog/new', { replace: true });
+  }
+
+  async function submitLogin() {
     if (!email.trim() || !password) return;
-    submitted = true;
+    loading = true;
+    error = '';
+    try {
+      await signIn(email, password);
+      navigate('/blog/new', { replace: true });
+    } catch (e) {
+      const code = e?.code || '';
+      if (code === 'auth/invalid-credential' || code === 'auth/wrong-password' || code === 'auth/user-not-found') {
+        error = 'Invalid email or password.';
+      } else if (code === 'auth/too-many-requests') {
+        error = 'Too many attempts. Try again later.';
+      } else {
+        error = 'Could not sign in. Please try again.';
+      }
+    } finally {
+      loading = false;
+    }
   }
 </script>
-
-<svelte:head>
-  <title>Login · Elevation Aviation</title>
-  <meta name="description" content="Student and staff login for Elevation Aviation resources." />
-</svelte:head>
 
 <section class="relative overflow-hidden bg-ink-900 py-28 sm:py-36">
   <div
@@ -32,10 +50,10 @@
           class="font-display text-4xl font-medium leading-[1.05] tracking-tight text-bone-50 sm:text-5xl"
           use:reveal={{ delay: 90 }}
         >
-          Admin portal.
+          Sign in.
         </h1>
         <p class="mt-6 text-base leading-relaxed text-bone-200/75" use:reveal={{ delay: 170 }}>
-          Sign in to manage site content. This form is not connected to a backend yet.
+          Sign in to write and publish blog posts.
         </p>
       </div>
 
@@ -46,15 +64,15 @@
       >
         <div class="border-b border-white/[0.08] p-7 sm:p-8">
           <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-sky-300/80">Restricted access</p>
-          <h2 class="mt-3 font-display text-2xl font-medium tracking-tight text-bone-50">Admin portal</h2>
+          <h2 class="mt-3 font-display text-2xl font-medium tracking-tight text-bone-50">Sign in</h2>
           <p class="mt-4 text-sm leading-relaxed text-bone-200/70">
-            This login form is ready for a future portal connection. It does not authenticate against a backend yet.
+            Enter your email and password to create and publish blog posts, including images.
           </p>
         </div>
 
-        {#if submitted}
-          <div class="border-b border-white/[0.08] bg-sky-300/10 p-6 text-sm leading-relaxed text-bone-100">
-            Thanks. Portal access is not connected yet, so no login request was sent.
+        {#if error}
+          <div class="border-b border-white/[0.08] bg-red-400/10 p-6 text-sm leading-relaxed text-red-100">
+            {error}
           </div>
         {/if}
 
@@ -66,8 +84,9 @@
               bind:value={email}
               autocomplete="email"
               required
-              class="mt-2 w-full border border-white/12 bg-ink-950/60 px-3 py-3 text-base text-bone-50 outline-none transition-all placeholder:text-bone-200/35 focus:border-sky-300/50 focus:shadow-[0_0_0_3px_rgba(176,217,245,0.10)] btn-clip-xs"
-              placeholder="admin@example.com"
+              disabled={loading}
+              class="mt-2 w-full border border-white/12 bg-ink-950/60 px-3 py-3 text-base text-bone-50 outline-none transition-all placeholder:text-bone-200/35 focus:border-sky-300/50 focus:shadow-[0_0_0_3px_rgba(176,217,245,0.10)] btn-clip-xs disabled:opacity-60"
+              placeholder="you@elevationflight.com"
             />
           </label>
           <label class="block">
@@ -77,13 +96,16 @@
               bind:value={password}
               autocomplete="current-password"
               required
-              class="mt-2 w-full border border-white/12 bg-ink-950/60 px-3 py-3 text-base text-bone-50 outline-none transition-all placeholder:text-bone-200/35 focus:border-sky-300/50 focus:shadow-[0_0_0_3px_rgba(176,217,245,0.10)] btn-clip-xs"
+              disabled={loading}
+              class="mt-2 w-full border border-white/12 bg-ink-950/60 px-3 py-3 text-base text-bone-50 outline-none transition-all placeholder:text-bone-200/35 focus:border-sky-300/50 focus:shadow-[0_0_0_3px_rgba(176,217,245,0.10)] btn-clip-xs disabled:opacity-60"
               placeholder="Password"
             />
           </label>
-          <button type="submit" class="btn-primary w-full">Log in</button>
+          <button type="submit" class="btn-primary w-full" disabled={loading}>
+            {loading ? 'Signing in…' : 'Log in'}
+          </button>
           <p class="text-xs leading-relaxed text-bone-200/55">
-            Admin access only. Contact the office if you need credentials.
+            Staff only. <a href="/blog" use:link class="text-sky-300/80 hover:text-sky-300">Back to blog</a>
           </p>
         </div>
       </form>

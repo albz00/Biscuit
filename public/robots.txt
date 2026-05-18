@@ -1,5 +1,9 @@
+# https://elevationflight.com/
 User-agent: *
 Allow: /
 Disallow: /login
+
+# AI and LLM crawlers: site summary at /llms.txt
+# https://llmstxt.org/
 
 Sitemap: https://elevationflight.com/sitemap.xml

@@ -12,10 +12,55 @@ function currentBrowserPath() {
 
 export const currentPath = writable(currentBrowserPath());
 
+/** @type {import('svelte/store').Writable<Record<string, string>>} */
+export const routeParams = writable({});
+
+/**
+ * @param {string} path
+ * @returns {{ type: 'static'; path: string } | { type: 'blog-list' } | { type: 'blog-post'; slug: string } | { type: 'blog-editor'; mode: 'new' | 'edit'; slug?: string }}
+ */
+export function parseRoute(path) {
+  const p = normalizePath(path);
+
+  if (p === '/blog') return { type: 'blog-list' };
+  if (p === '/blog/new') return { type: 'blog-editor', mode: 'new' };
+
+  const editMatch = p.match(/^\/blog\/edit\/([^/]+)$/);
+  if (editMatch) {
+    return { type: 'blog-editor', mode: 'edit', slug: decodeURIComponent(editMatch[1]) };
+  }
+
+  const postMatch = p.match(/^\/blog\/([^/]+)$/);
+  if (postMatch) {
+    return { type: 'blog-post', slug: decodeURIComponent(postMatch[1]) };
+  }
+
+  return { type: 'static', path: p };
+}
+
+function syncRouteParams(path) {
+  const route = parseRoute(path);
+  if (route.type === 'blog-post') routeParams.set({ slug: route.slug });
+  else if (route.type === 'blog-editor' && route.mode === 'edit' && route.slug) {
+    routeParams.set({ slug: route.slug, mode: 'edit' });
+  } else if (route.type === 'blog-editor') routeParams.set({ mode: 'new' });
+  else routeParams.set({});
+}
+
 if (typeof window !== 'undefined') {
+  syncRouteParams(currentBrowserPath());
+
   window.addEventListener('popstate', () => {
-    currentPath.set(currentBrowserPath());
+    const path = currentBrowserPath();
+    currentPath.set(path);
+    syncRouteParams(path);
   });
+}
+
+export function setCurrentPath(path) {
+  const normalized = normalizePath(path);
+  currentPath.set(normalized);
+  syncRouteParams(normalized);
 }
 
 function scrollAfterNavigation(hash) {
@@ -41,7 +86,7 @@ export function navigate(href, options = {}) {
   if (next === current) return;
 
   window.history[options.replace ? 'replaceState' : 'pushState']({}, '', next);
-  currentPath.set(path);
+  setCurrentPath(path);
   scrollAfterNavigation(url.hash);
 }
 

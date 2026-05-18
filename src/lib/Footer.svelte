@@ -112,7 +112,14 @@
     <div
       class="mt-16 flex flex-col gap-3 bg-white/[0.03] px-4 py-6 text-xs text-bone-200/45 btn-clip-sm sm:flex-row sm:items-center sm:justify-between sm:gap-4"
     >
-      <span>© {copyrightYear} Elevation Aviation. All rights reserved.</span>
+      <span class="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <span>© {copyrightYear} Elevation Aviation. All rights reserved.</span>
+        <span class="hidden text-bone-200/30 sm:inline" aria-hidden="true">·</span>
+        <span class="flex flex-wrap gap-x-3 gap-y-1">
+          <a href="/privacy-policy" use:link class="transition-colors hover:text-sky-300">Privacy Policy</a>
+          <a href="/terms-of-service" use:link class="transition-colors hover:text-sky-300">Terms of Service</a>
+        </span>
+      </span>
       <span class="text-bone-200/55">
         Created by
         <a

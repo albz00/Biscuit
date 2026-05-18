@@ -83,14 +83,6 @@
   ];
 </script>
 
-<svelte:head>
-  <title>About · Elevation Aviation</title>
-  <meta
-    name="description"
-    content="Our student-forward approach to flight training at Manassas Regional Airport—mentorship, clear expectations, and paths for every certificate."
-  />
-</svelte:head>
-
 <div class="relative">
   <!-- Dark cap: fades over exactly py-28/py-36 so the nav area is dark and page text starts on light background -->
   <div

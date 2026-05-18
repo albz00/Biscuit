@@ -45,13 +45,6 @@
         'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/e0516ec9-3286-4b3b-2795-900e2a355500/public'
     },
     {
-      name: 'Mike Esti',
-      ratings: ['CFI', 'CFII', 'MEI'],
-      showContact: false,
-      photo:
-        'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/851fe212-314f-4f22-7811-9233ed37e600/public'
-    },
-    {
       name: 'Amanda Behrens',
       ratings: ['CFI', 'CFII', 'MEI'],
       showContact: false,
@@ -77,14 +70,6 @@
     return `mailto:${officeEmail}?subject=${subject}`;
   }
 </script>
-
-<svelte:head>
-  <title>Instructors · Elevation Aviation</title>
-  <meta
-    name="description"
-    content="Meet the certificated flight instructors and team guiding private, instrument, and commercial training at Elevation Aviation in Manassas, Virginia."
-  />
-</svelte:head>
 
 <section
   class="relative overflow-hidden bg-gradient-to-b from-bone-50 via-bone-100 to-bone-50 pt-28 pb-24 text-ink-900 sm:pt-36 sm:pb-32"

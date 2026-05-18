@@ -3,14 +3,6 @@
   import { reveal } from '../lib/useReveal.js';
 </script>
 
-<svelte:head>
-  <title>Page not found · Elevation Aviation</title>
-  <meta
-    name="description"
-    content="We could not find that page. Return to Elevation Aviation for flight training at Manassas Regional Airport."
-  />
-</svelte:head>
-
 <section class="relative overflow-hidden bg-ink-950 py-28 sm:py-36">
   <div
     class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(61,147,227,0.14),transparent_50%)]"

@@ -37,7 +37,7 @@
     {
       title: 'Blog',
       href: '/blog',
-      body: 'Read training notes, student updates, and access the portal-style login page.'
+      body: 'Read training notes, student updates, and sign in to publish new posts.'
     },
     {
       title: 'Manassas Regional Airport',
@@ -65,6 +65,36 @@
       body: 'Monthly payment options for flight training. Terms and applications are handled on their site.'
     },
     {
+      title: 'Flight Schedule Pro',
+      href: 'https://app.flightschedulepro.com',
+      external: true,
+      body: 'Schedule aircraft and manage your training calendar.'
+    },
+    {
+      title: 'FAA Designee Locator',
+      href: 'https://designee.faa.gov/designeeLocator',
+      external: true,
+      body: 'Find designated pilot examiners and other FAA designees near you.'
+    },
+    {
+      title: 'FAA',
+      href: 'https://www.faa.gov',
+      external: true,
+      body: 'Official Federal Aviation Administration site for regulations, medicals, and pilot resources.'
+    },
+    {
+      title: 'IACRA',
+      href: 'https://iacra.faa.gov/IACRA/Default.aspx',
+      external: true,
+      body: 'Integrated Airman Certification and Rating Application for certificate and rating paperwork.'
+    },
+    {
+      title: 'FAASafety ALC-405',
+      href: 'https://www.faasafety.gov/gslac/ALC/courseLanding.aspx?cID=405',
+      external: true,
+      body: 'FAA Safety Team online course (ALC-405).'
+    },
+    {
       title: 'Contact the office',
       href: '/contact',
       external: false,
@@ -83,14 +113,6 @@
     }
   }
 </script>
-
-<svelte:head>
-  <title>Resources · Elevation Aviation</title>
-  <meta
-    name="description"
-    content="Site map, student links, and practical resources for flight training with Elevation Aviation at Manassas Regional Airport."
-  />
-</svelte:head>
 
 <section class="relative overflow-hidden bg-ink-900 py-28 sm:py-36">
   <div

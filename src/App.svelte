@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import Nav from './lib/Nav.svelte';
   import Footer from './lib/Footer.svelte';
-  import { currentPath } from './lib/router.js';
+  import { currentPath, parseRoute } from './lib/router.js';
   import Home from './pages/Home.svelte';
   import FleetPage from './pages/FleetPage.svelte';
   import TrainingPage from './pages/TrainingPage.svelte';
@@ -11,10 +11,15 @@
   import AboutPage from './pages/AboutPage.svelte';
   import ResourcesPage from './pages/ResourcesPage.svelte';
   import BlogPage from './pages/BlogPage.svelte';
+  import BlogPostPage from './pages/BlogPostPage.svelte';
+  import BlogEditorPage from './pages/BlogEditorPage.svelte';
   import ContactPage from './pages/ContactPage.svelte';
   import ManassasAirportPage from './pages/ManassasAirportPage.svelte';
   import LoginPage from './pages/LoginPage.svelte';
+  import PrivacyPolicyPage from './pages/PrivacyPolicyPage.svelte';
+  import TermsOfServicePage from './pages/TermsOfServicePage.svelte';
   import NotFoundPage from './pages/NotFoundPage.svelte';
+  import SeoHead from './lib/SeoHead.svelte';
 
   const brandLogo =
     'https://imagedelivery.net/FvOXf_HoZxDXgXU5xPiCfw/cc79ee1b-e321-4111-3de5-8a0eb77b5000/public';
@@ -30,10 +35,20 @@
     '/blog': BlogPage,
     '/contact': ContactPage,
     '/login': LoginPage,
+    '/privacy-policy': PrivacyPolicyPage,
+    '/terms-of-service': TermsOfServicePage,
     '/manassas-regional-airport-virginia': ManassasAirportPage
   };
 
-  $: ActivePage = routes[$currentPath] ?? NotFoundPage;
+  $: route = parseRoute($currentPath);
+  $: ActivePage =
+    route.type === 'blog-list'
+      ? BlogPage
+      : route.type === 'blog-post'
+        ? BlogPostPage
+        : route.type === 'blog-editor'
+          ? BlogEditorPage
+          : routes[$currentPath] ?? NotFoundPage;
 
   let splashMounted = true;
   let splashExiting = false;
@@ -86,6 +101,7 @@
   </div>
 {/if}
 
+<SeoHead />
 <Nav />
 <main>
   <svelte:component this={ActivePage} />
