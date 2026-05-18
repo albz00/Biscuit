@@ -198,11 +198,22 @@ export async function updatePostsByAuthor(authorEmail, profile) {
  * @param {string} slug
  */
 export async function uploadCoverImage(file, slug) {
+  return uploadBlogImage(file, slug, 'cover');
+}
+
+/**
+ * @param {File} file
+ * @param {string} postSlug Post slug or draft folder name
+ * @param {'cover' | 'body'} kind
+ */
+export async function uploadBlogImage(file, postSlug, kind = 'body') {
   const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
   const safeExt = ['jpg', 'jpeg', 'png', 'webp', 'gif'].includes(ext) ? ext : 'jpg';
-  const path = `blog/${slug}/cover-${Date.now()}.${safeExt}`;
+  const folder = postSlug?.trim() || 'draft';
+  const prefix = kind === 'cover' ? 'cover' : 'body';
+  const path = `blog/${folder}/${prefix}-${Date.now()}.${safeExt}`;
   const storageRef = ref(storage, path);
-  await uploadBytes(storageRef, file, { contentType: file.type });
+  await uploadBytes(storageRef, file, { contentType: file.type || `image/${safeExt}` });
   return getDownloadURL(storageRef);
 }
 

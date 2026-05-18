@@ -234,6 +234,103 @@
   }
 }
 
+/* Rich text editor + blog article body */
+.rte-btn {
+  @apply inline-flex min-h-[2rem] min-w-[2rem] items-center justify-center border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.08em] transition-colors btn-clip-xs;
+}
+
+.rich-text-editor .tiptap-editor:focus {
+  outline: none;
+}
+
+.rich-text-editor .tiptap p.is-editor-empty:first-child::before {
+  color: rgba(234, 230, 216, 0.35);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.rich-text-editor .tiptap h2 {
+  @apply mt-6 font-display text-2xl font-medium text-bone-50;
+}
+
+.rich-text-editor .tiptap h3 {
+  @apply mt-5 font-display text-xl font-medium text-bone-50;
+}
+
+.rich-text-editor .tiptap ul,
+.rich-text-editor .tiptap ol {
+  @apply my-4 pl-6;
+}
+
+.rich-text-editor .tiptap ul {
+  list-style: disc;
+}
+
+.rich-text-editor .tiptap ol {
+  list-style: decimal;
+}
+
+.rich-text-editor .tiptap blockquote {
+  @apply my-4 border-l-2 border-sky-400/40 pl-4 italic text-bone-200/80;
+}
+
+.rich-text-editor .tiptap a {
+  @apply text-sky-300 underline underline-offset-2;
+}
+
+.rich-text-editor .tiptap img,
+.rich-text-editor .blog-editor-image,
+.blog-prose img {
+  @apply my-6 w-full btn-clip border border-white/10;
+}
+
+.blog-prose h2 {
+  @apply mt-10 font-display text-3xl font-medium text-bone-50;
+}
+
+.blog-prose h3 {
+  @apply mt-8 font-display text-2xl font-medium text-bone-50;
+}
+
+.blog-prose p {
+  @apply my-4;
+}
+
+.blog-prose ul,
+.blog-prose ol {
+  @apply my-4 pl-6;
+}
+
+.blog-prose ul {
+  list-style: disc;
+}
+
+.blog-prose ol {
+  list-style: decimal;
+}
+
+.blog-prose li {
+  @apply my-1;
+}
+
+.blog-prose blockquote {
+  @apply my-6 border-l-2 border-sky-400/40 pl-4 italic text-bone-200/80;
+}
+
+.blog-prose a {
+  @apply text-sky-300 underline underline-offset-2 transition-colors hover:text-sky-200;
+}
+
+.blog-prose hr {
+  @apply my-8 border-white/10;
+}
+
+.blog-prose strong {
+  @apply font-semibold text-bone-50;
+}
+
 /* Subtle grain */
 .grain {
   position: absolute;

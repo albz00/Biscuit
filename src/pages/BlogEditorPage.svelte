@@ -8,9 +8,12 @@
     savePost,
     deletePost,
     uploadCoverImage,
+    uploadBlogImage,
     slugFromTitle,
     canManagePost
   } from '../lib/blogs.js';
+  import RichTextEditor from '../lib/RichTextEditor.svelte';
+  import { isBodyEmpty } from '../lib/blogBody.js';
   import { slugify, isValidSlug } from '../lib/slug.js';
 
   let title = '';
@@ -90,6 +93,10 @@
       error = 'Title is required.';
       return;
     }
+    if (isBodyEmpty(body)) {
+      error = 'Body is required.';
+      return;
+    }
 
     saving = true;
     try {
@@ -150,6 +157,12 @@
     if (!file) return;
     coverFile = file;
     coverImageUrl = URL.createObjectURL(file);
+  }
+
+  /** @param {File} file */
+  async function uploadBodyImage(file) {
+    const postSlug = slug.trim() || previousSlug || editSlug || 'draft';
+    return uploadBlogImage(file, postSlug, 'body');
   }
 </script>
 
@@ -221,15 +234,18 @@
             ></textarea>
           </label>
 
-          <label class="block">
+          <div class="block">
             <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-bone-200/65">Body</span>
-            <textarea
-              bind:value={body}
-              rows="14"
-              required
-              class="mt-2 w-full resize-y border border-white/12 bg-ink-950/60 px-3 py-3 text-base leading-relaxed text-bone-50 outline-none btn-clip-xs focus:border-sky-300/50"
-            ></textarea>
-          </label>
+            <div class="mt-2">
+              {#key `${mode}-${editSlug}-${loading}`}
+                <RichTextEditor
+                  bind:value={body}
+                  uploadImage={uploadBodyImage}
+                  placeholder="Write your article…"
+                />
+              {/key}
+            </div>
+          </div>
 
           <div>
             <span class="text-[10px] font-semibold uppercase tracking-[0.18em] text-bone-200/65">Cover image</span>

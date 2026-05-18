@@ -4,6 +4,7 @@
   import { reveal } from '../lib/useReveal.js';
   import { user } from '../lib/auth.js';
   import { getPost, canManagePost, deletePost } from '../lib/blogs.js';
+  import { renderBlogBody } from '../lib/blogBody.js';
   import PostAuthor from '../lib/PostAuthor.svelte';
   import { pageSeoOverride, SITE_NAME } from '../lib/seo.js';
 
@@ -136,10 +137,10 @@
         {/if}
 
         <div
-          class="mt-10 whitespace-pre-wrap text-base leading-relaxed text-bone-100/90"
+          class="blog-prose mt-10 text-base leading-relaxed text-bone-100/90"
           use:reveal={{ delay: 220 }}
         >
-          {post.body}
+          {@html renderBlogBody(post.body)}
         </div>
 
         {#if $user && canManagePost(post, $user)}
