@@ -28,6 +28,7 @@ const POSTS = 'posts';
  * @property {import('firebase/firestore').Timestamp | null} [createdAt]
  * @property {import('firebase/firestore').Timestamp | null} [updatedAt]
  * @property {string} [authorEmail]
+ * @property {string} [authorName]
  */
 
 /**
@@ -54,7 +55,8 @@ function fromDoc(id, data) {
     published: Boolean(data.published),
     createdAt: asTimestamp(data.createdAt),
     updatedAt: asTimestamp(data.updatedAt),
-    authorEmail: data.authorEmail ?? ''
+    authorEmail: data.authorEmail ?? '',
+    authorName: data.authorName ?? ''
   };
 }
 
@@ -135,6 +137,7 @@ export async function savePost(post, previousSlug) {
     coverImageUrl: post.coverImageUrl?.trim() || '',
     published: Boolean(post.published),
     authorEmail: post.authorEmail || '',
+    authorName: post.authorName || '',
     createdAt,
     updatedAt: serverTimestamp()
   });
@@ -174,4 +177,40 @@ export function formatPostDate(ts) {
     month: 'long',
     day: 'numeric'
   });
+}
+
+/**
+ * @param {BlogPost} post
+ */
+export function formatAuthorName(post) {
+  if (post.authorName?.trim()) return post.authorName.trim();
+  if (post.authorEmail) {
+    const local = post.authorEmail.split('@')[0] || '';
+    return local
+      .replace(/[._-]+/g, ' ')
+      .replace(/\b\w/g, (c) => c.toUpperCase())
+      .trim();
+  }
+  return 'Elevation Aviation';
+}
+
+/**
+ * @param {BlogPost} post
+ */
+export function formatPostByline(post) {
+  const author = formatAuthorName(post);
+  const date = formatPostDate(post.createdAt);
+  if (author && date) return `By ${author} · ${date}`;
+  if (author) return `By ${author}`;
+  return date;
+}
+
+/**
+ * @param {BlogPost | null | undefined} post
+ * @param {import('firebase/auth').User | null | undefined} firebaseUser
+ */
+export function canManagePost(post, firebaseUser) {
+  if (!post || !firebaseUser?.email) return false;
+  if (!post.authorEmail) return true;
+  return post.authorEmail.toLowerCase() === firebaseUser.email.toLowerCase();
 }

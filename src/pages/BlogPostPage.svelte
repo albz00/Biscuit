@@ -1,15 +1,17 @@
 <script>
   import { onDestroy } from 'svelte';
-  import { link, routeParams } from '../lib/router.js';
+  import { link, navigate, routeParams } from '../lib/router.js';
   import { reveal } from '../lib/useReveal.js';
   import { user } from '../lib/auth.js';
-  import { getPost, formatPostDate } from '../lib/blogs.js';
+  import { getPost, formatPostByline, canManagePost, deletePost } from '../lib/blogs.js';
   import { pageSeoOverride, SITE_NAME } from '../lib/seo.js';
 
   /** @type {import('../lib/blogs.js').BlogPost | null} */
   let post = null;
   let loading = true;
   let notFound = false;
+  let deleting = false;
+  let deleteError = '';
 
   $: slug = $routeParams.slug || '';
 
@@ -50,6 +52,22 @@
   onDestroy(() => {
     pageSeoOverride.set(null);
   });
+
+  async function onDelete() {
+    if (!post || !canManagePost(post, $user)) return;
+    if (!confirm('Delete this post permanently?')) return;
+
+    deleting = true;
+    deleteError = '';
+    try {
+      await deletePost(post.slug);
+      navigate('/blog', { replace: true });
+    } catch (e) {
+      deleteError = e?.message || 'Could not delete post.';
+    } finally {
+      deleting = false;
+    }
+  }
 </script>
 
 <section class="relative overflow-hidden bg-ink-900 py-28 sm:py-36">
@@ -91,7 +109,7 @@
         {/if}
 
         <p class="text-[10px] font-semibold uppercase tracking-[0.22em] text-sky-300/80" use:reveal>
-          {formatPostDate(post.createdAt)}
+          {formatPostByline(post)}
         </p>
         <h1
           class="mt-4 font-display text-4xl font-medium leading-[1.08] tracking-tight text-bone-50 sm:text-5xl"
@@ -123,10 +141,21 @@
           {post.body}
         </div>
 
-        {#if $user}
+        {#if $user && canManagePost(post, $user)}
           <div class="mt-12 flex flex-wrap gap-4" use:reveal={{ delay: 260 }}>
             <a href="/blog/edit/{post.slug}" use:link class="btn-primary">Edit post</a>
+            <button
+              type="button"
+              class="border border-red-400/40 px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-red-200/90 transition-colors hover:bg-red-400/10 btn-clip-sm"
+              disabled={deleting}
+              on:click={onDelete}
+            >
+              {deleting ? 'Deleting…' : 'Delete post'}
+            </button>
           </div>
+          {#if deleteError}
+            <p class="mt-4 text-sm text-red-200/90">{deleteError}</p>
+          {/if}
         {/if}
       </article>
     {/if}

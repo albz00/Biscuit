@@ -3,7 +3,7 @@
   import { link } from '../lib/router.js';
   import { reveal } from '../lib/useReveal.js';
   import { user, signOut } from '../lib/auth.js';
-  import { listPosts, formatPostDate } from '../lib/blogs.js';
+  import { listPosts, formatPostByline } from '../lib/blogs.js';
 
   /** @type {import('../lib/blogs.js').BlogPost[]} */
   let posts = [];
@@ -119,7 +119,7 @@
               {/if}
               <div class="flex flex-1 flex-col p-6">
                 <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-sky-300/75">
-                  {formatPostDate(post.createdAt)}
+                  {formatPostByline(post)}
                   {#if !post.published}
                     <span class="ml-2 text-amber-300/90">· Draft</span>
                   {/if}

@@ -8,7 +8,8 @@
     savePost,
     deletePost,
     uploadCoverImage,
-    slugFromTitle
+    slugFromTitle,
+    canManagePost
   } from '../lib/blogs.js';
   import { slugify, isValidSlug } from '../lib/slug.js';
 
@@ -20,6 +21,8 @@
   let published = false;
   let coverImageUrl = '';
   let coverFile = null;
+  let authorEmail = '';
+  let authorName = '';
   let loading = true;
   let saving = false;
   let deleting = false;
@@ -52,12 +55,22 @@
         loading = false;
         return;
       }
+      if (!canManagePost(existing, $user)) {
+        error = 'You can only edit your own posts.';
+        loading = false;
+        return;
+      }
+      authorEmail = existing.authorEmail || $user?.email || '';
+      authorName = existing.authorName || $user?.displayName || '';
       title = existing.title;
       excerpt = existing.excerpt;
       body = existing.body;
       slug = existing.slug;
       published = existing.published;
       coverImageUrl = existing.coverImageUrl || '';
+    } else {
+      authorEmail = $user?.email || '';
+      authorName = $user?.displayName || '';
     }
     loading = false;
   }
@@ -98,7 +111,8 @@
           body: body.trim(),
           coverImageUrl,
           published,
-          authorEmail: $user?.email || ''
+          authorEmail,
+          authorName
         },
         previousSlug || undefined
       );
