@@ -1,5 +1,5 @@
 const CONTACT_FROM = 'Elevation Aviation <info@hostverna.co>';
-const CONTACT_TO = 'alex@hostverna.com';
+const CONTACT_TO = 'ian@elevationflight.com';
 
 function escapeHtml(value) {
   return String(value ?? '')
