@@ -7,7 +7,7 @@
   /** When true (standalone /contact page), adds the top ink fade so the fixed nav reads on this light section. */
   export let navDarkCap = false;
 
-  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY ?? '';
+  const TURNSTILE_SITE_KEY = '0x4AAAAAADR1WSUlDdPYD7F7';
 
   let name = '';
   let preferredDate = '';
@@ -43,14 +43,12 @@
     turnstileToken = '';
   }
 
-  $: turnstileParams = turnstileSiteKey
-    ? {
-        siteKey: turnstileSiteKey,
-        onToken: onTurnstileToken,
-        onClear: onTurnstileClear,
-        handle: turnstileHandle
-      }
-    : null;
+  const turnstileParams = {
+    siteKey: TURNSTILE_SITE_KEY,
+    onToken: onTurnstileToken,
+    onClear: onTurnstileClear,
+    handle: turnstileHandle
+  };
 
   async function submit() {
     contactError = '';
@@ -61,10 +59,6 @@
     const hasPhone = phone.trim().length > 0;
     if (!hasEmail && !hasPhone) {
       contactError = 'Please provide an email, a phone number, or both.';
-      return;
-    }
-    if (!turnstileSiteKey) {
-      contactError = 'Form is not configured. Please call or email the office.';
       return;
     }
     if (!turnstileToken) {
@@ -421,21 +415,13 @@
             </div>
 
             <div class="border-t border-ink-900/12 bg-bone-100/90 px-5 py-5 sm:px-8">
-              {#if turnstileParams}
-                <div use:turnstile={turnstileParams} class="flex min-h-[65px] justify-start"></div>
-              {:else}
-                <p class="text-sm text-amber-800" role="status">
-                  This form is not fully configured. Please call
-                  <a href="tel:5716573847" class="font-medium underline">571 · 657 · 3847</a>
-                  or email the office.
-                </p>
-              {/if}
+              <div use:turnstile={turnstileParams} class="flex min-h-[65px] justify-start"></div>
               {#if contactError}
                 <p class="mt-4 text-sm text-red-600" role="alert">{contactError}</p>
               {/if}
               <div class="mt-5 flex flex-wrap items-center justify-between gap-4">
                 <p class="max-w-md text-xs leading-relaxed text-ink-600">Submit this form and we will follow up.</p>
-                <button type="submit" class="btn-primary shrink-0" disabled={submitting || !turnstileSiteKey}>
+                <button type="submit" class="btn-primary shrink-0" disabled={submitting}>
                   {submitting ? 'Sending…' : 'Submit'}
                 </button>
               </div>
