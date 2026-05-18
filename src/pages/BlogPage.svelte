@@ -55,6 +55,13 @@
       <div class="flex flex-col items-start gap-3 sm:items-end" use:reveal={{ delay: 220 }}>
         {#if $user}
           <a href="/blog/new" use:link class="btn-primary">New post</a>
+          <a
+            href="/blog/profile"
+            use:link
+            class="text-[11px] font-semibold uppercase tracking-[0.18em] text-bone-200/70 transition-colors hover:text-sky-300"
+          >
+            Profile
+          </a>
           <button
             type="button"
             class="text-[11px] font-semibold uppercase tracking-[0.18em] text-bone-200/70 transition-colors hover:text-sky-300"

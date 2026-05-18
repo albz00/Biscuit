@@ -16,6 +16,7 @@
   import ContactPage from './pages/ContactPage.svelte';
   import ManassasAirportPage from './pages/ManassasAirportPage.svelte';
   import LoginPage from './pages/LoginPage.svelte';
+  import ProfilePage from './pages/ProfilePage.svelte';
   import PrivacyPolicyPage from './pages/PrivacyPolicyPage.svelte';
   import TermsOfServicePage from './pages/TermsOfServicePage.svelte';
   import NotFoundPage from './pages/NotFoundPage.svelte';
@@ -44,11 +45,13 @@
   $: ActivePage =
     route.type === 'blog-list'
       ? BlogPage
-      : route.type === 'blog-post'
-        ? BlogPostPage
-        : route.type === 'blog-editor'
-          ? BlogEditorPage
-          : routes[$currentPath] ?? NotFoundPage;
+      : route.type === 'blog-profile'
+        ? ProfilePage
+        : route.type === 'blog-post'
+          ? BlogPostPage
+          : route.type === 'blog-editor'
+            ? BlogEditorPage
+            : routes[$currentPath] ?? NotFoundPage;
 
   let splashMounted = true;
   let splashExiting = false;

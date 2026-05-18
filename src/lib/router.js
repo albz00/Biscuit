@@ -1,3 +1,4 @@
+import { tick } from 'svelte';
 import { writable } from 'svelte/store';
 
 function normalizePath(path) {
@@ -17,12 +18,13 @@ export const routeParams = writable({});
 
 /**
  * @param {string} path
- * @returns {{ type: 'static'; path: string } | { type: 'blog-list' } | { type: 'blog-post'; slug: string } | { type: 'blog-editor'; mode: 'new' | 'edit'; slug?: string }}
+ * @returns {{ type: 'static'; path: string } | { type: 'blog-list' } | { type: 'blog-profile' } | { type: 'blog-post'; slug: string } | { type: 'blog-editor'; mode: 'new' | 'edit'; slug?: string }}
  */
 export function parseRoute(path) {
   const p = normalizePath(path);
 
   if (p === '/blog') return { type: 'blog-list' };
+  if (p === '/blog/profile') return { type: 'blog-profile' };
   if (p === '/blog/new') return { type: 'blog-editor', mode: 'new' };
 
   const editMatch = p.match(/^\/blog\/edit\/([^/]+)$/);
@@ -47,8 +49,21 @@ function syncRouteParams(path) {
   else routeParams.set({});
 }
 
+/** @type {string | undefined} */
+let pendingHash;
+
 if (typeof window !== 'undefined') {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
   syncRouteParams(currentBrowserPath());
+
+  currentPath.subscribe(() => {
+    const hash = pendingHash !== undefined ? pendingHash : window.location.hash;
+    pendingHash = undefined;
+    scheduleScrollAfterRouteChange(hash);
+  });
 
   window.addEventListener('popstate', () => {
     const path = currentBrowserPath();
@@ -63,16 +78,30 @@ export function setCurrentPath(path) {
   syncRouteParams(normalized);
 }
 
-function scrollAfterNavigation(hash) {
-  if (!hash) {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-    return;
-  }
+function scrollAfterRouteChange(hash) {
+  if (typeof window === 'undefined') return;
 
-  window.requestAnimationFrame(() => {
-    const target = document.getElementById(decodeURIComponent(hash.slice(1)));
-    if (target) target.scrollIntoView({ block: 'start' });
+  const apply = () => {
+    if (hash) {
+      const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+      if (target) {
+        target.scrollIntoView({ block: 'start' });
+        return;
+      }
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  };
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(apply);
   });
+}
+
+function scheduleScrollAfterRouteChange(hash) {
+  tick().then(() => scrollAfterRouteChange(hash));
 }
 
 export function navigate(href, options = {}) {
@@ -85,9 +114,9 @@ export function navigate(href, options = {}) {
 
   if (next === current) return;
 
+  pendingHash = url.hash || '';
   window.history[options.replace ? 'replaceState' : 'pushState']({}, '', next);
   setCurrentPath(path);
-  scrollAfterNavigation(url.hash);
 }
 
 export function link(node, opts = {}) {
