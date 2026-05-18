@@ -1,8 +1,8 @@
 <script>
-  import { onMount } from 'svelte';
   import { link } from './router.js';
   import { reveal } from './useReveal.js';
   import GoogleReviewLink from './GoogleReviewLink.svelte';
+  import { turnstile } from './turnstile.js';
 
   /** When true (standalone /contact page), adds the top ink fade so the fixed nav reads on this light section. */
   export let navDarkCap = false;
@@ -23,10 +23,7 @@
   let submitting = false;
   let contactError = '';
   let turnstileToken = '';
-  /** @type {HTMLElement | null} */
-  let turnstileContainer = null;
-  /** @type {string | undefined} */
-  let turnstileWidgetId;
+  const turnstileHandle = { reset: () => {} };
 
   const trainingOptions = [
     'Private Pilot',
@@ -38,48 +35,22 @@
 
   const contactMethods = ['Call', 'Email', 'Text'];
 
-  onMount(() => {
-    if (!turnstileSiteKey || !turnstileContainer) return;
-
-    const existing = document.querySelector('script[data-turnstile]');
-    const renderWidget = () => {
-      if (!turnstileContainer || !window.turnstile || turnstileWidgetId) return;
-      turnstileWidgetId = window.turnstile.render(turnstileContainer, {
-        sitekey: turnstileSiteKey,
-        theme: 'light',
-        callback: (token) => {
-          turnstileToken = token;
-        },
-        'expired-callback': () => {
-          turnstileToken = '';
-        },
-        'error-callback': () => {
-          turnstileToken = '';
-        }
-      });
-    };
-
-    if (existing) {
-      if (window.turnstile) renderWidget();
-      else existing.addEventListener('load', renderWidget);
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-    script.async = true;
-    script.defer = true;
-    script.dataset.turnstile = 'true';
-    script.onload = renderWidget;
-    document.head.appendChild(script);
-  });
-
-  function resetTurnstile() {
-    turnstileToken = '';
-    if (turnstileWidgetId && window.turnstile) {
-      window.turnstile.reset(turnstileWidgetId);
-    }
+  function onTurnstileToken(token) {
+    turnstileToken = token;
   }
+
+  function onTurnstileClear() {
+    turnstileToken = '';
+  }
+
+  $: turnstileParams = turnstileSiteKey
+    ? {
+        siteKey: turnstileSiteKey,
+        onToken: onTurnstileToken,
+        onClear: onTurnstileClear,
+        handle: turnstileHandle
+      }
+    : null;
 
   async function submit() {
     contactError = '';
@@ -125,14 +96,14 @@
           typeof data.error === 'string'
             ? data.error
             : 'Something went wrong. Please try again or call the office.';
-        resetTurnstile();
+        turnstileHandle.reset();
         return;
       }
 
       submitted = true;
     } catch {
       contactError = 'Unable to reach the server. Please try again or call the office.';
-      resetTurnstile();
+      turnstileHandle.reset();
     } finally {
       submitting = false;
     }
@@ -450,12 +421,21 @@
             </div>
 
             <div class="border-t border-ink-900/12 bg-bone-100/90 px-5 py-5 sm:px-8">
-              {#if turnstileSiteKey}
-                <div bind:this={turnstileContainer} class="flex min-h-[65px] justify-start"></div>
+              {#if turnstileParams}
+                <div use:turnstile={turnstileParams} class="flex min-h-[65px] justify-start"></div>
+              {:else}
+                <p class="text-sm text-amber-800" role="status">
+                  This form is not fully configured. Please call
+                  <a href="tel:5716573847" class="font-medium underline">571 · 657 · 3847</a>
+                  or email the office.
+                </p>
+              {/if}
+              {#if contactError}
+                <p class="mt-4 text-sm text-red-600" role="alert">{contactError}</p>
               {/if}
               <div class="mt-5 flex flex-wrap items-center justify-between gap-4">
                 <p class="max-w-md text-xs leading-relaxed text-ink-600">Submit this form and we will follow up.</p>
-                <button type="submit" class="btn-primary shrink-0" disabled={submitting}>
+                <button type="submit" class="btn-primary shrink-0" disabled={submitting || !turnstileSiteKey}>
                   {submitting ? 'Sending…' : 'Submit'}
                 </button>
               </div>
